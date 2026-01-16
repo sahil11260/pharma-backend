@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications | KavyaPharm Admin</title>
+  <link rel="icon" type="image/png" href="assets/images/fevicon-icon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+      <button class="btn btn-outline-secondary me-3" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="d-flex">
+        <button class="btn btn-outline-secondary me-2" id="themeToggle">
+          <i class="bi bi-moon"></i>
+        </button>
+        <button class="btn btn-outline-secondary me-2" id="notifyBtn" data-bs-toggle="modal"
+          data-bs-target="#notificationsModal" title="Notifications">
+          <i class="bi bi-bell"></i>
+        </button>
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown"
+            data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">
+                Profile
+              </a>
+            </li>
+            <li><a class="dropdown-item" href="Profile.html">Profile Settings</a></li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header text-center py-3">
+      <img src="assets/images/image.png" class="logo light-logo" alt="logo" />
+      <img src="assets/images/logo-dark.png" class="logo dark-logo" alt="dark logo" />
+    </div>
+    <ul class="sidebar-menu mb-5">
+      <li><a href="index.html"><i class="bi bi-house-door"></i> Dashboard</a></li>
+      <li><a href="mrs.html"><i class="bi bi-person-badge"></i> My MRs</a></li>
+      <li><a href="tasks.html"><i class="bi bi-people"></i> Task / Assignment</a></li>
+      <li><a href="doctors.html"><i class="bi bi-hospital"></i> Doctors </a></li>
+      <li><a href="samples.html"><i class="bi bi-box-seam"></i> Product Samples</a></li>
+      <li><a href="expenses.html"><i class="bi bi-bullseye"></i> Expense Management</a></li>
+      <li><a href="reports.html"><i class="bi bi-cash-stack"></i> Reports & Feedbacks</a></li>
+      <li><a href="targets.html"><i class="bi bi-graph-up"></i> Sales & Target Tracking</a></li>
+      <li><a href="tracking.html"><i class="bi bi-bar-chart"></i> MR Live Tracking</a></li>
+      <li><a href="notifications.html"><i class="bi bi-bell"></i> Notifications</a></li>
+      <li class="active"><a href="setting.html"><i class="bi bi-gear"></i> Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content" id="mainContent">
+    <div class="container-fluid mt-5 pt-4">
+      <h1 class="mb-4"><i class="bi bi-gear"></i> Settings</h1>
+      <hr />
+
+      <!-- Settings content (kept unchanged) -->
+      <div class="row mb-4">
+        <div class="col-md-12">
+          <div id="general-settings" class="settings-tab">
+            <div class="card">
+              <div class="card-header">
+                <h5>General Settings</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row mb-3">
+                    <div class="col-md-4">
+                      <label for="companyName" class="form-label">Company Name</label>
+                      <input type="text" class="form-control" id="companyName" value="KavyaPharm" />
+                    </div>
+                    <div class="col-md-4">
+                      <label for="companyEmail" class="form-label">Company Email</label>
+                      <input type="email" class="form-control" id="companyEmail" value="admin@kavyapharm.com" />
+                    </div>
+                    <div class="col-md-4">
+                      <label for="mobileNumber" class="form-label">Mobile Number</label>
+                      <input type="tel" class="form-control" id="mobileNumber" />
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label for="timezone" class="form-label">Timezone</label>
+                      <select class="form-select" id="timezone">
+                        <option value="Asia/Kolkata" selected>Asia/Kolkata (IST)</option>
+                        <option value="Asia/Dubai">Asia/Dubai (GST)</option>
+                        <option value="Europe/London">Europe/London (GMT)</option>
+                        <option value="America/New_York">America/New_York (EST)</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="currency" class="form-label">Default Currency</label>
+                      <select class="form-select" id="currency">
+                        <option value="INR" selected>Indian Rupee (₹)</option>
+                        <option value="USD">US Dollar ($)</option>
+                        <option value="EUR">Euro (€)</option>
+                        <option value="GBP">British Pound (£)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">About Company</label>
+                    <textarea id="companyDesc" class="form-control"
+                      rows="2">AI-driven Pharma MR Tracking & Analytics company focused on doctor visit management and real-time reporting.</textarea>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="companyAddress" class="form-label">Company Address</label>
+                    <textarea class="form-control" id="companyAddress"
+                      rows="3">123 Business District, Mumbai, Maharashtra 400001</textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /.container -->
+  </div> <!-- /.main-content -->
+
+  <!-- NOTIFICATIONS MODAL (kept, script will render into #notificationsList) -->
+  <div class="modal fade" id="notificationsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 500px">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-bell"></i> Notifications</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0" style="max-height: 400px; overflow-y: auto">
+          <div id="notificationsList"><!-- notifications will be injected here by script --></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="window.location.href='notifications.html'">View
+            All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE MODAL (kept) -->
+  <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title"><i class="bi bi-person-circle me-2"></i>Admin Profile</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body text-center p-4">
+          <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile Icon"
+            class="rounded-circle mb-3 shadow border" width="110" height="110" />
+          <h5 id="profileName" class="fw-bold mb-1 text-dark"></h5>
+          <p id="profileEmail" class="text-muted mb-3"></p>
+          <div class="alert alert-light border text-start small">
+            <i class="bi bi-info-circle me-1 text-primary"></i>
+            Logged in as <strong>Regional Admin</strong>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container-fluid text-center">
+      <p>&copy; 2025 KavyaPharm | All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <!-- 1) Bootstrap bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 2) Your general site script (if you have one). Keep a single reference only. -->
+  <script src="assets/js/script.js"></script>
+
+  <!-- 3) The robust notifications script (rename/move the file to this path) -->
+  <script src="assets/js/notifications-full.js"></script>
+
+  <!-- Optional: any other page scripts (do NOT include an older Notification.js) -->
+  <!-- <script src="assets/js/old-Notification.js"></script> --> <!-- removed on purpose -->
+
+  <script>
+    // small profile fallback
+    document.addEventListener('DOMContentLoaded', () => {
+      const profileName = document.getElementById('profileName');
+      const profileEmail = document.getElementById('profileEmail');
+      if (profileName) profileName.textContent = localStorage.getItem('signup_name') || 'Admin User';
+      if (profileEmail) profileEmail.textContent = localStorage.getItem('signup_email') || 'admin@kavyapharm.com';
+    });
+  </script>
+</body>
+
+</html>

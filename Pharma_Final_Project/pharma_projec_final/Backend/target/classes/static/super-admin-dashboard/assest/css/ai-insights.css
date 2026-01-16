@@ -1,0 +1,26 @@
+/* === Fix uneven overview-card sizing on zoom (desktop) === */
+.main-content .row > [class*="col-md-3"],
+.main-content .row > [class*="col-md-4"] {
+  display: flex;
+}
+
+.main-content .overview-card,
+.main-content .insight-card {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-height: 150px; /* Adjust height if needed */
+}
+
+.main-content .overview-card .card-body,
+.main-content .insight-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Optional: keep icons and text balanced */
+.main-content .overview-card .d-flex {
+  flex: 1;
+  align-items: center;
+}

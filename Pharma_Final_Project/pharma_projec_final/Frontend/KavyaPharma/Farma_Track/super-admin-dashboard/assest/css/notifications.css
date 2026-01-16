@@ -1,0 +1,61 @@
+/* Custom styles for professional appearance */
+/* Add this to style.css or a dedicated CSS file */
+
+/* Priority Highlighting on Table Rows */
+.priority-high {
+  border-left: 5px solid #dc3545; /* Red for High Priority */
+}
+.priority-normal {
+  border-left: 5px solid #ffc107; /* Yellow for Normal Priority */
+}
+.priority-low {
+  border-left: 5px solid #198754; /* Green for Low Priority */
+}
+
+/* Ensure row hover is subtle and professional */
+.table-striped tbody tr:nth-of-type(odd):hover,
+.table-striped tbody tr:nth-of-type(even):hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Make action buttons less distracting but clear */
+.action-btn {
+  font-size: 0.8rem;
+}
+
+/* View Modal Styling for both Light/Dark Modes (Overriding the HTML provided data-bs-theme="dark" for View Modal) */
+/* Light Mode (Default) */
+#viewNotificationModal .modal-content {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+#viewNotificationModal .bg-primary {
+  background-color: #0d6efd !important; /* Bootstrap Primary */
+}
+#viewNotificationModal .modal-body {
+  padding: 1rem 1.5rem;
+}
+#viewNotificationModal .modal-footer {
+  border-top: 1px solid #dee2e6;
+}
+
+/* Dark Mode Overrides for View Modal */
+[data-bs-theme="dark"] #viewNotificationModal .modal-content {
+  background-color: #212529;
+  color: #f8f9fa;
+}
+[data-bs-theme="dark"] #viewNotificationModal .modal-body {
+  background-color: #212529;
+  color: #f8f9fa;
+}
+[data-bs-theme="dark"] #viewNotificationModal .modal-footer {
+  background-color: #212529;
+  border-top-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Fix text color contrast in View Modal's detail rows for dark mode */
+[data-bs-theme="dark"] #viewNotificationDetailsBody .text-dark,
+[data-bs-theme="dark"] #viewNotificationDetailsBody .bg-light {
+  color: #f8f9fa !important;
+  background-color: #343a40 !important;
+}

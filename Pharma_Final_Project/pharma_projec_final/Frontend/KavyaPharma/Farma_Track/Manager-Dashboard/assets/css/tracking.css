@@ -1,0 +1,425 @@
+/* ===============================
+    KavyaPharm Tracking Page Styles
+    =============================== */
+
+/* Navbar */
+.navbar {
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background: #f8f9fa;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background: #f8f9fa;
+  transition: transform 0.3s ease;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-250px);
+}
+
+.sidebar-header {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-header img {
+  width: 150px;
+  transition: 0.3s ease;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 14px 20px;
+  color: #495057;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu li a i {
+  margin-right: 10px;
+}
+
+.sidebar-menu li a:hover {
+  background: #e9ecef;
+  color: #0d6efd;
+}
+
+.sidebar-menu li.active a {
+  background: #0d6efd;
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 250px;
+  margin-top: 60px;
+  transition: margin-left 0.3s ease;
+  min-height: calc(100vh - 60px - 60px);
+}
+
+.main-content.expanded {
+  margin-left: 0;
+}
+
+/* Cards Common Style */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* Map Container */
+#map {
+  border-radius: 0 0 12px 12px;
+  z-index: 1;
+}
+
+/* Map Controls */
+.map-controls {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 1000;
+}
+
+.map-controls .btn {
+  margin-left: 5px;
+}
+
+/* MR Status Cards */
+.mr-status-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.mr-status-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mr-status-card.online .card-header {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+}
+
+.mr-status-card.moving .card-header {
+  background: linear-gradient(45deg, #0d6efd, #4dabf7);
+  color: white;
+}
+
+.mr-status-card.stopped .card-header {
+  background: linear-gradient(45deg, #ffc107, #fd7e14);
+  color: white;
+}
+
+.mr-status-card.offline .card-header {
+  background: linear-gradient(45deg, #6c757d, #adb5bd);
+  color: white;
+}
+
+.mr-status-card .status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.mr-status-card.online .status-indicator {
+  background: #28a745;
+}
+
+.mr-status-card.moving .status-indicator {
+  background: #0d6efd;
+}
+
+.mr-status-card.stopped .status-indicator {
+  background: #ffc107;
+}
+
+.mr-status-card.offline .status-indicator {
+  background: #6c757d;
+}
+
+/* Activity Table */
+.table th {
+  background: #f8f9fa;
+  border-top: none;
+  font-weight: 600;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.activity-status {
+  font-size: 0.75rem;
+}
+
+/* Footer */
+.footer {
+  background: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .navbar {
+  background: #1e1e1e !important;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a {
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a:hover {
+  background: #333;
+  color: #0d6efd;
+}
+
+body.dark-mode .sidebar-menu li.active a {
+  background: #0d6efd;
+}
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .card-header {
+  background: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .footer {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .mr-status-card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .mr-status-card.online .card-header {
+  background: linear-gradient(45deg, #006400, #228b22);
+}
+
+body.dark-mode .mr-status-card.moving .card-header {
+  background: linear-gradient(45deg, #004085, #0066cc);
+}
+
+body.dark-mode .mr-status-card.stopped .card-header {
+  background: linear-gradient(45deg, #856404, #d39e00);
+}
+
+body.dark-mode .mr-status-card.offline .card-header {
+  background: linear-gradient(45deg, #383d41, #5a6268);
+}
+
+body.dark-mode .table {
+  color: #ffffff;
+}
+
+body.dark-mode .table th {
+  background: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .text-muted {
+  color: #cccccc !important;
+}
+
+/* Logo Dark/Light Toggle */
+.light-logo {
+  display: block;
+}
+
+.dark-logo {
+  display: none;
+}
+
+body.dark-mode .light-logo {
+  display: none;
+}
+
+body.dark-mode .dark-logo {
+  display: block;
+}
+
+/* Notification Modal Styles */
+.notification-item {
+  border-bottom: 1px solid #dee2e6;
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+  background-color: #f8f9fa;
+}
+
+.notification-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+body.dark-mode .notification-item {
+  border-bottom-color: #444;
+}
+
+body.dark-mode .notification-item:hover {
+  background-color: #2d2d2d;
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-250px);
+  }
+
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  #map {
+    height: 400px !important;
+  }
+
+  .mr-status-card {
+    margin-bottom: 10px;
+  }
+
+  .map-controls {
+    position: static;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .map-controls .btn {
+    margin: 0 2px;
+  }
+
+  .table-responsive {
+    font-size: 0.875rem;
+  }
+}
+
+/* Leaflet Custom Styles */
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+
+.leaflet-popup-tip {
+  background: white;
+}
+
+/* Custom marker styles */
+.mr-marker-online {
+  background: #28a745;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mr-marker-moving {
+  background: #0d6efd;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mr-marker-stopped {
+  background: #ffc107;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mr-marker-offline {
+  background: #6c757d;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.footer {
+  width: 100%;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 18px 0;
+  padding-left: 300px;
+}
+
+.footer-inner {
+  text-align: center !important;
+  width: 100%;
+}
+
+.footer p {
+  text-align: center !important;
+  margin: 0;
+  font-size: 14px;
+}

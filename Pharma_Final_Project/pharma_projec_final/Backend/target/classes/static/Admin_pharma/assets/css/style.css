@@ -1,0 +1,324 @@
+/* ===============================
+   KavyaPharm Admin (Regional) Dashboard Styles
+   =============================== */
+
+/* Navbar */
+.navbar {
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background: #f8f9fa;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background: #f8f9fa;
+  transition: transform 0.3s ease;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-250px);
+}
+
+.sidebar-header {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-header img {
+  width: 150px;
+  transition: 0.3s ease;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 14px 20px;
+  color: #495057;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu li a i {
+  margin-right: 10px;
+}
+
+.sidebar-menu li a:hover {
+  background: #e9ecef;
+  color: #0d6efd;
+}
+
+.sidebar-menu li.active a {
+  background: #0d6efd;
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 250px;
+  margin-top: 60px;
+  transition: margin-left 0.3s ease;
+  min-height: calc(100vh - 60px - 60px);
+}
+
+.main-content.expanded {
+  margin-left: 0;
+}
+
+/* Cards Common Style */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* Overview Cards (Top KPIs) */
+.overview-card {
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.overview-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.overview-card .card-body h5 {
+  font-size: 16px;
+}
+
+.overview-card .card-body h3 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Color Gradients */
+.card-primary {
+  background: linear-gradient(45deg, #512da8, #7e57c2);
+}
+.card-success {
+  background: linear-gradient(45deg, #2e7d32, #66bb6a);
+}
+.card-info {
+  background: linear-gradient(45deg, #0288d1, #4fc3f7);
+}
+.card-warning {
+  background: linear-gradient(45deg, #ef6c00, #ffb74d);
+}
+
+/* Insight Cards */
+.insight-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.insight-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Footer */
+.footer {
+  background: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .navbar {
+  background: #1e1e1e !important;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a {
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a:hover {
+  background: #333;
+  color: #0d6efd;
+}
+
+body.dark-mode .sidebar-menu li.active a {
+  background: #0d6efd;
+}
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .card-header {
+  background: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .footer {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+/* Logo Dark/Light Toggle */
+.light-logo {
+  display: block;
+}
+
+.dark-logo {
+  display: none;
+}
+
+body.dark-mode .light-logo {
+  display: none;
+}
+
+body.dark-mode .dark-logo {
+  display: block;
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-250px);
+  }
+
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .overview-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .overview-card h5 {
+    font-size: 0.9rem;
+  }
+}
+/* ============================
+🎯 Target Cards Hover Enhanced
+============================ */
+.target-card {
+  transition: all 0.3s ease-in-out;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.target-card:hover {
+  transform: translateY(-6px);
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+  border-color: #0d6efd;
+  box-shadow: 0 8px 18px rgba(13, 110, 253, 0.25);
+}
+
+/* For dark mode */
+body.dark-mode .target-card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode .target-card:hover {
+  background: linear-gradient(135deg, #1e3a8a, #111827);
+  box-shadow: 0 8px 18px rgba(0, 123, 255, 0.35);
+  border-color: #0d6efd;
+}
+
+
+/* 💸 Expense Cards Hover Effect */
+.expense-card {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid #e9ecef;
+  background: #fff;
+}
+
+.expense-card:hover {
+  transform: translateY(-6px);
+  background: linear-gradient(135deg, #e8f5e9, #ffffff);
+  border-color: #198754;
+  box-shadow: 0 8px 18px rgba(25, 135, 84, 0.25);
+}
+
+/* Dark Mode Support */
+body.dark-mode .expense-card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode .expense-card:hover {
+  background: linear-gradient(135deg, #0a2f18, #1a1a1a);
+  box-shadow: 0 8px 18px rgba(25, 135, 84, 0.35);
+  border-color: #28a745;
+}
+
+.chart-box {
+  position: relative;
+  height: 320px;   /* 🔹 Same height for both charts */
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .chart-box {
+    height: 260px;
+  }
+}

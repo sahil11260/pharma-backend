@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assest/image/fevicon-icon.png" />
+    <title>KavyaPharm - AI Insights</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assest/css/style.css" rel="stylesheet" />
+
+    <link href="assest/css/ai-insights.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <button class="btn btn-outline-secondary me-3" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </button>
+        <!-- <span class="navbar-brand mx-auto">KavyaPharm Admin Dashboard</span> -->
+        <div class="d-flex">
+          <button class="btn btn-outline-secondary me-2" id="themeToggle">
+            <i class="bi bi-moon"></i>
+          </button>
+          <button class="btn btn-outline-secondary me-2" id="notificationBtn">
+            <i class="bi bi-bell"></i>
+          </button>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              id="userDropdown"
+              data-bs-toggle="dropdown"
+            >
+              <i class="bi bi-person-circle"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#profileModal"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="profile-settings.html">
+                  Profile Settings</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="assest/image/image.png" alt="logo" class="logo light-logo" />
+        <img
+          src="assest/image/logo-dark.png"
+          alt="logo"
+          class="logo dark-logo"
+        />
+      </div>
+
+      <ul class="sidebar-menu mb-5">
+        <li>
+          <a href="index.html"><i class="bi bi-house-door"></i> Dashboard</a>
+        </li>
+
+        <li>
+          <a href="user-management.html">
+            <i class="bi bi-people"></i> User Management
+          </a>
+        </li>
+
+        <li>
+          <a href="region-management.html">
+            <i class="bi bi-geo-alt"></i> Region Management
+          </a>
+        </li>
+
+        <li>
+          <a href="product-management.html">
+            <i class="bi bi-box-seam"></i> Product Management
+          </a>
+        </li>
+
+        <li>
+          <a href="target-management.html">
+            <i class="bi bi-bullseye"></i> Target Management
+          </a>
+        </li>
+
+        <li>
+          <a href="expense-oversight.html">
+            <i class="bi bi-cash-stack"></i> Expense Oversight
+          </a>
+        </li>
+
+        <li>
+          <a href="analytics-reports.html">
+            <i class="bi bi-graph-up"></i> Analytics & Reports
+          </a>
+        </li>
+
+        <li class="active">
+          <a href="ai-insights.html">
+            <i class="bi bi-lightbulb"></i> AI Insights
+          </a>
+        </li>
+
+        <li>
+          <a href="notifications.html">
+            <i class="bi bi-bell"></i> Notifications</a
+          >
+        </li>
+
+        <li>
+          <a href="settings.html"> <i class="bi bi-gear"></i> Settings </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="main-content" id="mainContent">
+      <div class="container-fluid mt-5 pt-4">
+        <div class="row mb-4 mt-3">
+          <div class="col-md-3">
+            <div class="card overview-card card-primary">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">AI Accuracy</h5>
+                    <h3 id="predictionAccuracy">92%</h3>
+                    <span class="badge bg-success">+2%</span>
+                  </div>
+                  <i class="bi bi-robot fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-success">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Insights Generated</h5>
+                    <h3 id="insightsGenerated">1,247</h3>
+                    <!-- <span class="badge bg-success">+15%</span> -->
+                  </div>
+                  <i class="bi bi-lightbulb-fill fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-info">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Data Analyzed</h5>
+                    <h3 id="dataPoints">2.5M</h3>
+                    <span class="badge bg-success">+8%</span>
+                  </div>
+                  <i class="bi bi-database fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-warning">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Active Models</h5>
+                    <h3 id="activeModels">12</h3>
+                    <span class="badge bg-success">Stable</span>
+                  </div>
+                  <i class="bi bi-cpu fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="mb-4">
+          <i class="bi bi-lightbulb"></i> AI Insights Dashboard
+        </h1>
+        <hr />
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5>Sales Prediction Trend</h5>
+              </div>
+              <div class="card-body">
+                <canvas id="salesPredictionChart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5>Expense Anomaly Detection</h5>
+              </div>
+              <div class="card-body">
+                <canvas id="expenseAnomalyChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5>Doctor Visit Optimization</h5>
+              </div>
+              <div class="card-body">
+                <canvas id="visitOptimizationChart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5>Product Recommendation Engine</h5>
+              </div>
+              <div class="card-body">
+                <div class="list-group">
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Product A
+                    <span class="badge bg-primary rounded-pill">95% Match</span>
+                  </div>
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Product B
+                    <span class="badge bg-success rounded-pill">87% Match</span>
+                  </div>
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Product C
+                    <span class="badge bg-warning rounded-pill">78% Match</span>
+                  </div>
+                  <div
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Product D
+                    <span class="badge bg-info rounded-pill">72% Match</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5>AI-Generated Recommendations</h5>
+              </div>
+              <div class="card-body">
+                <div class="accordion" id="recommendationsAccordion">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#rec1"
+                      >
+                        Optimize Travel Expenses
+                      </button>
+                    </h2>
+                    <div
+                      id="rec1"
+                      class="accordion-collapse collapse show"
+                      data-bs-parent="#recommendationsAccordion"
+                    >
+                      <div class="accordion-body">
+                        Based on historical data, switching to economy class
+                        flights for inter-city travel could reduce costs by 25%
+                        without impacting productivity. Recommended routes:
+                        Delhi-Mumbai, Mumbai-Chennai.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#rec2"
+                      >
+                        Enhance Doctor Engagement
+                      </button>
+                    </h2>
+                    <div
+                      id="rec2"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#recommendationsAccordion"
+                    >
+                      <div class="accordion-body">
+                        AI analysis suggests scheduling visits during peak
+                        consultation hours (10 AM - 2 PM) increases engagement
+                        by 30%. Target high-potential doctors in urban areas
+                        first.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#rec3"
+                      >
+                        Inventory Optimization
+                      </button>
+                    </h2>
+                    <div
+                      id="rec3"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#recommendationsAccordion"
+                    >
+                      <div class="accordion-body">
+                        Predictive models indicate a 15% increase in demand for
+                        Product X in Q4. Recommend increasing stock levels by
+                        20% in key regions to avoid stockouts.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <div class="card insight-card">
+              <div class="card-body text-center">
+                <h5>Top Predictive Insight</h5>
+                <h3>Sales Growth</h3>
+                <p>
+                  Projected: <span class="text-success">+18%</span> next quarter
+                </p>
+                <small class="text-muted">Confidence: 94%</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card insight-card">
+              <div class="card-body text-center">
+                <h5>Risk Alert</h5>
+                <h3>Expense Spike</h3>
+                <p>Detected in Region A</p>
+                <small class="text-muted">Action Required</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card insight-card">
+              <div class="card-body text-center">
+                <h5>Opportunity</h5>
+                <h3>New Market</h3>
+                <p>Potential: ₹5M revenue</p>
+                <small class="text-muted">Explore expansion</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div
+      class="modal fade"
+      id="profileModal"
+      tabindex="-1"
+      aria-labelledby="profileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+          <!-- Header -->
+          <div class="modal-header bg-body-tertiary border-0 py-3">
+            <h5
+              class="modal-title fw-bold text-body mb-0"
+              id="profileModalLabel"
+            >
+              Profile
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Body -->
+          <div class="modal-body text-center bg-body px-4 pb-4">
+            <!-- Profile Picture -->
+            <div class="position-relative d-inline-block mb-3">
+              <img
+                src="assest/image/Profile-img.png"
+                alt="Profile Picture"
+                class="rounded-circle border border-2 border-light shadow-sm"
+                style="width: 90px; height: 90px; object-fit: cover"
+              />
+            </div>
+
+            <!-- Info Card -->
+            <div class="card border-0 shadow-sm rounded-3 bg-body-secondary">
+              <div class="card-body px-3 py-3">
+                <div class="mb-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Full Name
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">Rahul Sharma</p>
+                </div>
+
+                <div class="mb-3 border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Email
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">
+                    john.doe@kavyapharm.com
+                  </p>
+                </div>
+
+                <div class="border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Phone
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">+91 9876543210</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container-fluid">
+        <p>&copy; 2025 KavyaPharm | All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assest/js/script.js"></script>
+
+    <script src="assest/js/ai-insights.js"></script>
+  </body>
+</html>

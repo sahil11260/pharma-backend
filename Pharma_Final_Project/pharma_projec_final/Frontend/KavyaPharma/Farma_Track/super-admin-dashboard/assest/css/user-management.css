@@ -1,0 +1,49 @@
+/* Apply this CSS in your user-management.css or style.css.
+    This assumes your main body element gets a class like 'dark-mode'
+    or a data-attribute like 'data-bs-theme="dark"' when the toggle is pressed.
+    
+    Since your project seems to use Bootstrap's standard data-bs-theme="dark" 
+    on the modal-dialog (as per previous fixes), this targets that.
+*/
+
+/* 1. Target the View Modal's content in dark theme */
+[data-bs-theme="dark"] #viewUserModal .modal-content {
+  background-color: #212529 !important; /* Dark background color (Bootstrap's dark) */
+  color: #f8f9fa !important; /* Light text color */
+  border: 1px solid rgba(255, 255, 255, 0.125); /* Subtle light border */
+}
+
+/* 2. Ensure the text inside the modal body is light */
+[data-bs-theme="dark"] #viewUserModal .modal-body {
+  color: #f8f9fa !important;
+  background-color: #212529 !important; /* Explicitly dark background for the body */
+}
+
+/* 3. Ensure the modal footer is dark */
+[data-bs-theme="dark"] #viewUserModal .modal-footer {
+  background-color: #212529 !important;
+  border-top-color: rgba(255, 255, 255, 0.125) !important;
+}
+
+/* 4. Ensure the content wrapper (like the div holding the details) is dark.
+    Assuming the detailed text "ID: R01" etc., is wrapped in a div/p inside the body.
+    You may need to inspect the final HTML structure rendered in #viewUserDetailsBody
+    if this still doesn't fix all text.
+ */
+[data-bs-theme="dark"] #viewUserModal #viewUserDetailsBody div,
+[data-bs-theme="dark"] #viewUserModal #viewUserDetailsBody p,
+[data-bs-theme="dark"] #viewUserModal #viewUserDetailsBody strong,
+[data-bs-theme="dark"] #viewUserModal #viewUserDetailsBody span {
+  color: #f8f9fa !important;
+}
+
+/* Override bg-light to bg-dark in dark mode for the modal */
+[data-bs-theme="dark"] #viewUserModal .bg-light {
+  background-color: #343a40 !important;
+  color: #f8f9fa !important;
+}
+
+/* Ensure borders are dark */
+[data-bs-theme="dark"] #viewUserModal .border-bottom {
+  border-color: rgba(255, 255, 255, 0.125) !important;
+}

@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assest/image/fevicon-icon.png" />
+    <title>KavyaPharm - User Management</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assest/css/style.css" rel="stylesheet" />
+
+    <link href="assest/css/user-management.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <button class="btn btn-outline-secondary me-3" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="d-flex">
+          <button class="btn btn-outline-secondary me-2" id="themeToggle">
+            <i class="bi bi-moon"></i>
+          </button>
+          <button class="btn btn-outline-secondary me-2" id="notificationBtn">
+            <i class="bi bi-bell"></i>
+          </button>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              id="userDropdown"
+              data-bs-toggle="dropdown"
+            >
+              <i class="bi bi-person-circle"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#profileModal"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="profile-settings.html"
+                  >Profile Settings</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="assest/image/image.png" alt="logo" class="logo light-logo" />
+        <img
+          src="assest/image/logo-dark.png"
+          alt="logo"
+          class="logo dark-logo"
+        />
+      </div>
+
+      <ul class="sidebar-menu mb-5">
+        <li>
+          <a href="index.html"><i class="bi bi-house-door"></i> Dashboard</a>
+        </li>
+
+        <li class="active">
+          <a href="user-management.html">
+            <i class="bi bi-people"></i> User Management
+          </a>
+        </li>
+
+        <li>
+          <a href="region-management.html">
+            <i class="bi bi-geo-alt"></i> Region Management
+          </a>
+        </li>
+
+        <li>
+          <a href="product-management.html">
+            <i class="bi bi-box-seam"></i> Product Management
+          </a>
+        </li>
+
+        <li>
+          <a href="target-management.html">
+            <i class="bi bi-bullseye"></i> Target Management
+          </a>
+        </li>
+
+        <li>
+          <a href="expense-oversight.html">
+            <i class="bi bi-cash-stack"></i> Expense Oversight
+          </a>
+        </li>
+
+        <li>
+          <a href="analytics-reports.html">
+            <i class="bi bi-graph-up"></i> Analytics & Reports
+          </a>
+        </li>
+
+        <li>
+          <a href="ai-insights.html">
+            <i class="bi bi-lightbulb"></i> AI Insights
+          </a>
+        </li>
+
+        <li>
+          <a href="notifications.html">
+            <i class="bi bi-bell"></i> Notifications</a
+          >
+        </li>
+
+        <li>
+          <a href="settings.html"> <i class="bi bi-gear"></i> Settings </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="main-content" id="mainContent">
+      <div class="container-fluid mt-5 pt-4">
+        <h1 class="mb-4"><i class="bi bi-people-fill"></i> User Management</h1>
+        <hr />
+
+        <div class="card mb-4">
+          <div
+            class="card-header flex-wrap d-flex justify-content-between align-items-center gap-2"
+          >
+            <h5 class="mb-0">All System Users</h5>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addUserModal"
+            >
+              <i class="bi bi-person-plus me-2"></i>Add New User
+            </button>
+          </div>
+
+          <div class="card-body">
+            <div
+              class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2"
+            >
+              <div class="btn-group" role="group" id="roleFilterButtons">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-dark active"
+                  data-role-filter="All"
+                >
+                  All
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-dark"
+                  data-role-filter="Admin,HR"
+                >
+                  Admin
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-dark"
+                  data-role-filter="Area Manager"
+                >
+                  Manager
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-dark"
+                  data-role-filter="Doctor"
+                >
+                  Doctor
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-dark"
+                  data-role-filter="Medical Rep"
+                >
+                  MR
+                </button>
+              </div>
+              <input
+                type="text"
+                class="form-control form-control-sm w-auto flex-grow-1 flex-md-grow-0"
+                id="userSearchInput"
+                placeholder="Search users..."
+              />
+            </div>
+            <div class="table-responsive">
+              <table
+                class="table table-striped table-hover align-middle text-nowrap"
+                id="userTable"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Territory</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="userTableBody">
+                  <tr>
+                    <td>R15</td>
+                    <td>Mr. Rajesh Kumar</td>
+                    <td>rajesh.k@kavyapharm.com</td>
+                    <td><strong>Admin</strong></td>
+                    <td>Head Office</td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-success view-btn"
+                        data-user-id="R15"
+                        data-bs-toggle="modal"
+                        data-bs-target="#viewUserModal"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T9</td>
+                    <td>Rahul Mehta</td>
+                    <td>rahul.m@sales.com</td>
+                    <td>Medical Rep</td>
+                    <td>Mumbai-North</td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-success view-btn"
+                        data-user-id="T9"
+                        data-bs-toggle="modal"
+                        data-bs-target="#viewUserModal"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>P88</td>
+                    <td>Pooja Sharma</td>
+                    <td>pooja.s@sales.com</td>
+                    <td><strong>Area Manager</strong></td>
+                    <td>Delhi-NCR</td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-success view-btn"
+                        data-user-id="P88"
+                        data-bs-toggle="modal"
+                        data-bs-target="#viewUserModal"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>H21</td>
+                    <td>Anita Verma</td>
+                    <td>anita.v@kavyapharm.com</td>
+                    <td><strong>HR</strong></td>
+                    <td>Head Office</td>
+                    <td><span class="badge bg-warning">Inactive</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-success view-btn"
+                        data-user-id="H21"
+                        data-bs-toggle="modal"
+                        data-bs-target="#viewUserModal"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <nav>
+              <ul class="pagination justify-content-center flex-wrap">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#">Previous</a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="profileModal"
+      tabindex="-1"
+      aria-labelledby="profileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+          <div class="modal-header bg-body-tertiary border-0 py-3">
+            <h5
+              class="modal-title fw-bold text-body mb-0"
+              id="profileModalLabel"
+            >
+              Profile
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body text-center bg-body px-4 pb-4">
+            <div class="position-relative d-inline-block mb-3">
+              <img
+                src="assest/image/Profile-img.png"
+                alt="Profile Picture"
+                class="rounded-circle border border-2 border-light shadow-sm"
+                style="width: 90px; height: 90px; object-fit: cover"
+              />
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-3 bg-body-secondary">
+              <div class="card-body px-3 py-3">
+                <div class="mb-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Full Name
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">Rahul Sharma</p>
+                </div>
+
+                <div class="mb-3 border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Email
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">
+                    john.doe@kavyapharm.com
+                  </p>
+                </div>
+
+                <div class="border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Phone
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">+91 9876543210</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container-fluid">
+        <p>&copy; 2025 KavyaPharm | All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <div
+      class="modal fade"
+      id="addUserModal"
+      tabindex="-1"
+      aria-labelledby="addUserModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" data-bs-theme="dark">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addUserModalLabel">Create New User</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="d-flex justify-content-center mb-4">
+              <button class="btn btn-outline-primary me-2" id="adminBtn">
+                Admin
+              </button>
+              <button class="btn btn-outline-success me-2" id="managerBtn">
+                Manager
+              </button>
+              <button class="btn btn-outline-info me-2" id="doctorBtn">
+                Doctor
+              </button>
+              <button class="btn btn-outline-warning" id="mrBtn">MR</button>
+            </div>
+
+            <div id="adminForm" class="user-form" style="display: none">
+              <h6>Admin Registration</h6>
+              <form id="adminRegistrationForm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="adminName" class="form-label">Full Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="adminName"
+                      pattern="^[A-Za-z ]+$"
+                      title="Only letters and spaces allowed"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="adminEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="adminEmail"
+                      pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$"
+                      title="Enter a valid email address"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="adminPassword" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="adminPassword"
+                      pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                      title="Minimum 8 characters, at least one letter, one number, and one special character"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="adminPhone" class="form-label"
+                      >Phone Number</label
+                    >
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="adminPhone"
+                      pattern="^[0-9]{10}$"
+                      maxlength="10"
+                      oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
+                      title="Must be exactly 10 digits"
+                      required
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div id="managerForm" class="user-form" style="display: none">
+              <h6>Manager Registration</h6>
+              <form id="managerRegistrationForm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="managerName" class="form-label"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="managerName"
+                      pattern="^[A-Za-z ]+$"
+                      title="Only letters and spaces allowed"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="managerEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="managerEmail"
+                      pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$"
+                      title="Enter a valid email address"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="managerPassword" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="managerPassword"
+                      pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                      title="Minimum 8 characters, at least one letter, one number, and one special character"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="managerTerritory" class="form-label"
+                      >Territory</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="managerTerritory"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="managerPhone" class="form-label"
+                      >Phone Number</label
+                    >
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="managerPhone"
+                      pattern="^[0-9]{10}$"
+                      maxlength="10"
+                      oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
+                      title="Must be exactly 10 digits"
+                      required
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div id="doctorForm" class="user-form" style="display: none">
+              <h6>Doctor Registration</h6>
+              <form id="doctorRegistrationForm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="doctorName" class="form-label">Full Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="doctorName"
+                      pattern="^[A-Za-z ]+$"
+                      title="Only letters and spaces allowed"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="doctorEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="doctorEmail"
+                      pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$"
+                      title="Enter a valid email address"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="doctorPassword" class="form-label">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="doctorPassword"
+                      pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                      title="Minimum 8 characters, at least one letter, one number, and one special character"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="doctorSpeciality" class="form-label"
+                      >Speciality</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="doctorSpeciality"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="doctorCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="doctorCity" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="doctorType" class="form-label"
+                      >Doctor Type</label
+                    >
+                    <select class="form-select" id="doctorType">
+                      <option value="">Select Type</option>
+                      <option value="Consultant">Consultant</option>
+                      <option value="Resident">Resident</option>
+                      <option value="Specialist">Specialist</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="doctorAssignedMr" class="form-label"
+                      >Assigned MR</label
+                    >
+                    <select class="form-select" id="doctorAssignedMr">
+                      <option value="">Select MR</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="doctorPhone" class="form-label"
+                      >Phone Number</label
+                    >
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="doctorPhone"
+                      pattern="^[0-9]{10}$"
+                      maxlength="10"
+                      oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
+                      title="Must be exactly 10 digits"
+                      required
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div id="mrForm" class="user-form" style="display: none">
+              <h6>Medical Representative Registration</h6>
+              <form id="mrRegistrationForm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="mrName" class="form-label">Full Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="mrName"
+                      pattern="^[A-Za-z ]+$"
+                      title="Only letters and spaces allowed"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="mrEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="mrEmail"
+                      pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$"
+                      title="Enter a valid email address"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="mrPassword" class="form-label">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="mrPassword"
+                      pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                      title="Minimum 8 characters, at least one letter, one number, and one special character"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="mrTerritory" class="form-label"
+                      >Territory</label
+                    >
+                    <input type="text" class="form-control" id="mrTerritory" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="mrPhone" class="form-label">Phone Number</label>
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="mrPhone"
+                      pattern="^[0-9]{10}$"
+                      maxlength="10"
+                      oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10);"
+                      title="Must be exactly 10 digits"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="mrAssignedManager" class="form-label"
+                      >Assigned Manager</label
+                    >
+                    <select class="form-select" id="mrAssignedManager">
+                      <option value="">Select Manager</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary" id="saveUserBtn">
+              Save User
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="viewUserModal"
+      tabindex="-1"
+      aria-labelledby="viewUserModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered"
+        data-bs-theme="dark"
+      >
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="viewUserModalLabel">User Details</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body bg-dark text-white" id="viewUserDetailsBody">
+            Loading...
+          </div>
+          <div class="modal-footer bg-dark">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assest/js/script.js"></script>
+    <script src="assest/js/user-management.js"></script>
+  </body>
+</html>

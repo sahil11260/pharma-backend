@@ -1,0 +1,261 @@
+/* ===============================
+    KavyaPharm MRs Page Styles
+    =============================== */
+
+/* Navbar */
+.navbar {
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background: #f8f9fa;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background: #f8f9fa;
+  transition: transform 0.3s ease;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-250px);
+}
+
+.sidebar-header {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-header img {
+  width: 150px;
+  transition: 0.3s ease;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 14px 20px;
+  color: #495057;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu li a i {
+  margin-right: 10px;
+}
+
+.sidebar-menu li a:hover {
+  background: #e9ecef;
+  color: #0d6efd;
+}
+
+.sidebar-menu li.active a {
+  background: #0d6efd;
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 250px;
+  margin-top: 60px;
+  transition: margin-left 0.3s ease;
+  min-height: calc(100vh - 60px - 60px);
+}
+
+.main-content.expanded {
+  margin-left: 0;
+}
+
+/* Cards Common Style */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* MR Cards */
+.mr-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mr-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mr-card .card-header {
+  background: linear-gradient(45deg, #512da8, #7e57c2);
+  color: white;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.mr-card .card-footer {
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Footer */
+.footer {
+  background: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .navbar {
+  background: #1e1e1e !important;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a {
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a:hover {
+  background: #333;
+  color: #0d6efd;
+}
+
+body.dark-mode .sidebar-menu li.active a {
+  background: #0d6efd;
+}
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .card-header {
+  background: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .footer {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .mr-card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .mr-card .card-header {
+  background: linear-gradient(45deg, #333, #555);
+}
+
+body.dark-mode .mr-card .card-footer {
+  background: #2d2d2d;
+  border-top-color: #444;
+}
+
+body.dark-mode .text-muted {
+  color: #cccccc !important;
+}
+
+/* Modal Dark Mode */
+body.dark-mode .modal-content {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .modal-header {
+  background-color: #2d2d2d;
+  color: #ffffff;
+  border-bottom-color: #444;
+}
+
+body.dark-mode .modal-footer {
+  background-color: #2d2d2d;
+  border-top-color: #444;
+}
+
+/* Logo Dark/Light Toggle */
+.light-logo {
+  display: block;
+}
+
+.dark-logo {
+  display: none;
+}
+
+body.dark-mode .light-logo {
+  display: none;
+}
+
+body.dark-mode .dark-logo {
+  display: block;
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-250px);
+  }
+
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .mr-card .card-body .row .col-6 h5 {
+    font-size: 1.1rem;
+  }
+
+  .mr-card .card-body .row .col-6 small {
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assest/image/fevicon-icon.png" />
+    <title>KavyaPharm - Analytics & Reports</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="assest/css/style.css" rel="stylesheet" />
+
+    <link href="assest/css/analytics-reports.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <button class="btn btn-outline-secondary me-3" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="d-flex">
+          <button class="btn btn-outline-secondary me-2" id="themeToggle">
+            <i class="bi bi-moon"></i>
+          </button>
+          <button class="btn btn-outline-secondary me-2" id="notificationBtn">
+            <i class="bi bi-bell"></i>
+          </button>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              id="userDropdown"
+              data-bs-toggle="dropdown"
+            >
+              <i class="bi bi-person-circle"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#profileModal"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="profile-settings.html">
+                  Profile Settings</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="assest/image/image.png" alt="logo" class="logo light-logo" />
+        <img
+          src="assest/image/logo-dark.png"
+          alt="logo"
+          class="logo dark-logo"
+        />
+      </div>
+
+      <ul class="sidebar-menu mb-5">
+        <li>
+          <a href="index.html"><i class="bi bi-house-door"></i> Dashboard</a>
+        </li>
+
+        <li>
+          <a href="user-management.html">
+            <i class="bi bi-people"></i> User Management
+          </a>
+        </li>
+
+        <li>
+          <a href="region-management.html">
+            <i class="bi bi-geo-alt"></i> Region Management
+          </a>
+        </li>
+
+        <li>
+          <a href="product-management.html">
+            <i class="bi bi-box-seam"></i> Product Management
+          </a>
+        </li>
+
+        <li>
+          <a href="target-management.html">
+            <i class="bi bi-bullseye"></i> Target Management
+          </a>
+        </li>
+
+        <li>
+          <a href="expense-oversight.html">
+            <i class="bi bi-cash-stack"></i> Expense Oversight
+          </a>
+        </li>
+
+        <li class="active">
+          <a href="analytics-reports.html">
+            <i class="bi bi-graph-up"></i> Analytics & Reports
+          </a>
+        </li>
+
+        <li>
+          <a href="ai-insights.html">
+            <i class="bi bi-lightbulb"></i> AI Insights
+          </a>
+        </li>
+
+        <li>
+          <a href="notifications.html">
+            <i class="bi bi-bell"></i> Notifications</a
+          >
+        </li>
+
+        <li>
+          <a href="settings.html"> <i class="bi bi-gear"></i> Settings </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="main-content" id="mainContent">
+      <div class="container-fluid mt-5 pt-4">
+        <div class="row mb-4 mt-3">
+          <div class="col-md-3">
+            <div class="card overview-card card-primary">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Total Revenue</h5>
+                    <h3 id="totalRevenue">₹12,45,000</h3>
+                    <span class="badge bg-success">+18%</span>
+                  </div>
+                  <i class="bi bi-graph-up-arrow fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-success">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Total Sales</h5>
+                    <h3 id="totalSales">₹8,90,000</h3>
+                    <span class="badge bg-success">+22%</span>
+                  </div>
+                  <i class="bi bi-cash-coin fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-info">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Doctor Visits</h5>
+                    <h3 id="doctorVisits">1,247</h3>
+                    <span class="badge bg-success">+15%</span>
+                  </div>
+                  <i class="bi bi-person-hearts fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-warning">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Reports Generated</h5>
+                    <h3 id="reportsGenerated">89</h3>
+                  </div>
+                  <i class="bi bi-file-earmark-bar-graph fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="mb-4"><i class="bi bi-graph-up"></i> Analytics & Reports</h1>
+        <hr />
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5>
+              <i class="bi bi-file-earmark-spreadsheet me-2"></i>Generate
+              Reports
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3 mb-3">
+                <button
+                  class="btn btn-primary w-100 report-type-btn"
+                  onclick="generateReport('sales')"
+                  id="salesReportBtn"
+                >
+                  <i class="bi bi-graph-up me-2"></i>Sales Report
+                </button>
+              </div>
+              <div class="col-md-3 mb-3">
+                <button
+                  class="btn btn-outline-success w-100 report-type-btn"
+                  onclick="generateReport('visits')"
+                  id="visitsReportBtn"
+                >
+                  <i class="bi bi-person-hearts me-2"></i>Visit Report
+                </button>
+              </div>
+              <div class="col-md-3 mb-3">
+                <button
+                  class="btn btn-outline-info w-100 report-type-btn"
+                  onclick="generateReport('expense')"
+                  id="expenseReportBtn"
+                >
+                  <i class="bi bi-cash-stack me-2"></i>Expense Report
+                </button>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="reportStartDate" class="form-label"
+                    >Start Date</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="reportStartDate"
+                    onchange="enableEndDate()"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="reportEndDate" class="form-label">End Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="reportEndDate"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <script>
+              function enableEndDate() {
+                const startDate =
+                  document.getElementById("reportStartDate").value;
+                const endDate = document.getElementById("reportEndDate");
+                if (startDate) {
+                  endDate.disabled = false;
+                  endDate.min = startDate; // optional: prevent selecting before start date
+                } else {
+                  endDate.disabled = true;
+                }
+              }
+            </script>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="reportFormat" class="form-label">Format</label>
+                  <select class="form-select" id="reportFormat">
+                    <option value="pdf">PDF</option>
+                    <option value="excel">Excel</option>
+                    <option value="csv">CSV</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="reportRegion" class="form-label"
+                    >Region Filter</label
+                  >
+                  <select class="form-select" id="reportRegion">
+                    <option value="all">All Regions</option>
+                    <option value="mumbai">Mumbai</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="bangalore">Bangalore</option>
+                    <option value="chennai">Chennai</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="generateCustomReport()">
+              <i class="bi bi-download me-2"></i>Generate Custom Report
+            </button>
+          </div>
+        </div>
+
+        <div class="card mb-4" id="customReportDisplay" style="display: none">
+          <div class="card-header">
+            <h5 id="customReportTitle">
+              <i class="bi bi-bar-chart-line me-2"></i>Custom Sales Report
+            </h5>
+          </div>
+          <div class="card-body">
+            <p id="reportCriteria"></p>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Sales Price</th>
+                    <th>Units Sold (Simulated)</th>
+                    <th>Revenue Generated (Simulated)</th>
+                  </tr>
+                </thead>
+                <tbody id="customReportTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5><i class="bi bi-clock-history me-2"></i>Recent Reports</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Report Name</th>
+                    <th>Type</th>
+                    <th>Generated By</th>
+                    <th>Date</th>
+                    <th>Format</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="recentReportsTableBody">
+                  <tr>
+                    <td>October Sales Report</td>
+                    <td>Sales</td>
+                    <td>Admin</td>
+                    <td>2025-10-30</td>
+                    <td>PDF</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-download"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Q4 Performance Summary</td>
+                    <td>Performance</td>
+                    <td>Manager</td>
+                    <td>2025-10-28</td>
+                    <td>Excel</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-download"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Doctor Visit Analytics</td>
+                    <td>Visits</td>
+                    <td>Analytics</td>
+                    <td>2025-10-25</td>
+                    <td>PDF</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-download"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-info">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div
+      class="modal fade"
+      id="profileModal"
+      tabindex="-1"
+      aria-labelledby="profileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+          <!-- Header -->
+          <div class="modal-header bg-body-tertiary border-0 py-3">
+            <h5
+              class="modal-title fw-bold text-body mb-0"
+              id="profileModalLabel"
+            >
+              Profile
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Body -->
+          <div class="modal-body text-center bg-body px-4 pb-4">
+            <!-- Profile Picture -->
+            <div class="position-relative d-inline-block mb-3">
+              <img
+                src="assest/image/Profile-img.png"
+                alt="Profile Picture"
+                class="rounded-circle border border-2 border-light shadow-sm"
+                style="width: 90px; height: 90px; object-fit: cover"
+              />
+            </div>
+
+            <!-- Info Card -->
+            <div class="card border-0 shadow-sm rounded-3 bg-body-secondary">
+              <div class="card-body px-3 py-3">
+                <div class="mb-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Full Name
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">Rahul Sharma</p>
+                </div>
+
+                <div class="mb-3 border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Email
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">
+                    john.doe@kavyapharm.com
+                  </p>
+                </div>
+
+                <div class="border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Phone
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">+91 9876543210</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container-fluid">
+        <p>&copy; 2025 KavyaPharm | All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assest/js/script.js"></script>
+    <script src="assest/js/analytics-reports.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const notificationBtn = document.getElementById("notificationBtn");
+        if (notificationBtn) {
+          notificationBtn.addEventListener("click", function () {
+            // Create notification popup at bottom of button
+            const existingPopup = document.getElementById("notificationPopup");
+            if (existingPopup) {
+              existingPopup.remove();
+              return;
+            }
+
+            const popup = document.createElement("div");
+            popup.id = "notificationPopup";
+            popup.innerHTML = `
+              <div style="position: fixed; background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; min-width: 250px; color: black;">
+                <h6 style="margin: 0 0 10px 0; font-weight: bold;">Notifications</h6>
+                <div style="margin-bottom: 8px;">• New order received</div>
+                <div style="margin-bottom: 8px;">• Inventory low alert</div>
+                <div style="margin-bottom: 8px;">• System update available</div>
+                <div style="margin-bottom: 8px;">• View all notifications</div>
+              </div>
+            `;
+
+            document.body.appendChild(popup);
+
+            // Position popup below the notification button
+            const btnRect = notificationBtn.getBoundingClientRect();
+            const popupEl = popup.querySelector("div");
+            popupEl.style.left = btnRect.left - 200 + "px"; // Adjust to align with button
+            popupEl.style.top = btnRect.bottom + 5 + "px";
+
+            // Close popup when clicking outside
+            document.addEventListener("click", function closePopup(e) {
+              if (
+                !notificationBtn.contains(e.target) &&
+                !popup.contains(e.target)
+              ) {
+                popup.remove();
+                document.removeEventListener("click", closePopup);
+              }
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/png" href="assest/image/fevicon-icon.png" />
+    <title>KavyaPharm - Target Management</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assest/css/style.css" rel="stylesheet" />
+
+    <link href="assest/css/target-management.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <button class="btn btn-outline-secondary me-3" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="d-flex">
+          <button class="btn btn-outline-secondary me-2" id="themeToggle">
+            <i class="bi bi-moon"></i>
+          </button>
+          <button class="btn btn-outline-secondary me-2" id="notificationBtn">
+            <i class="bi bi-bell"></i>
+          </button>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              id="userDropdown"
+              data-bs-toggle="dropdown"
+            >
+              <i class="bi bi-person-circle"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#profileModal"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="profile-settings.html"
+                  >Profile Settings</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="assest/image/image.png" alt="logo" class="logo light-logo" />
+        <img
+          src="assest/image/logo-dark.png"
+          alt="logo"
+          class="logo dark-logo"
+        />
+      </div>
+
+      <ul class="sidebar-menu mb-5">
+        <li>
+          <a href="index.html"><i class="bi bi-house-door"></i> Dashboard</a>
+        </li>
+
+        <li>
+          <a href="user-management.html">
+            <i class="bi bi-people"></i> User Management
+          </a>
+        </li>
+
+        <li>
+          <a href="region-management.html">
+            <i class="bi bi-geo-alt"></i> Region Management
+          </a>
+        </li>
+
+        <li>
+          <a href="product-management.html">
+            <i class="bi bi-box-seam"></i> Product Management
+          </a>
+        </li>
+
+        <li class="active">
+          <a href="target-management.html">
+            <i class="bi bi-bullseye"></i> Target Management
+          </a>
+        </li>
+
+        <li>
+          <a href="expense-oversight.html">
+            <i class="bi bi-cash-stack"></i> Expense Oversight
+          </a>
+        </li>
+
+        <li>
+          <a href="analytics-reports.html">
+            <i class="bi bi-graph-up"></i> Analytics & Reports
+          </a>
+        </li>
+
+        <li>
+          <a href="ai-insights.html">
+            <i class="bi bi-lightbulb"></i> AI Insights
+          </a>
+        </li>
+
+        <li>
+          <a href="notifications.html">
+            <i class="bi bi-bell"></i> Notifications</a
+          >
+        </li>
+
+        <li>
+          <a href="settings.html"> <i class="bi bi-gear"></i> Settings </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="main-content target-management" id="mainContent">
+      <div class="container-fluid mt-5 pt-4">
+        <div class="row mb-4 mt-3">
+          <div class="col-md-3">
+            <div class="card overview-card card-primary">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Total Targets</h5>
+                    <h3 id="totalTargets">45</h3>
+                    <span class="badge bg-success">+15%</span>
+                  </div>
+                  <i class="bi bi-bullseye fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-success">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Achieved</h5>
+                    <h3 id="achievedTargets">32</h3>
+                    <span class="badge bg-success">71%</span>
+                  </div>
+                  <i class="bi bi-check-circle-fill fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-info">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">In Progress</h5>
+                    <h3 id="inProgressTargets">8</h3>
+                    <span class="badge bg-warning">18%</span>
+                  </div>
+                  <i class="bi bi-clock-history fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card overview-card card-warning">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">Behind Schedule</h5>
+                    <h3 id="behindTargets">5</h3>
+                  </div>
+                  <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="mb-4"><i class="bi bi-bullseye"></i> Target Management</h1>
+        <hr />
+
+        <div class="card mb-4">
+          <div
+            class="card-header flex-wrap d-flex justify-content-between align-items-center gap-2"
+          >
+            <h5 class="mb-0">All Targets</h5>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addTargetModal"
+            >
+              <i class="bi bi-plus-circle me-2"></i>Set New Target
+            </button>
+          </div>
+
+          <div class="card-body">
+            <div class="d-flex flex-wrap justify-content-end mb-3 gap-2">
+              <input
+                type="text"
+                class="form-control form-control-sm w-auto flex-grow-1 flex-md-grow-0"
+                id="targetSearchInput"
+                placeholder="Search targets..."
+              />
+            </div>
+
+            <div class="table-responsive">
+              <table
+                class="table table-striped table-hover align-middle text-nowrap"
+                id="targetTable"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Target Name</th>
+                    <th>Assigned To</th>
+                    <th>Type</th>
+                    <th>Target Value</th>
+                    <th>Current Progress</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="targetTableBody">
+                  <tr>
+                    <td>T001</td>
+                    <td>Q4 Sales Target</td>
+                    <td>Rajesh Kumar</td>
+                    <td>Sales</td>
+                    <td>₹500,000</td>
+                    <td>₹385,000 (77%)</td>
+                    <td>2025-12-31</td>
+                    <td><span class="badge bg-success">On Track</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-info edit-target-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editTargetModal"
+                        data-target-id="T001"
+                      >
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-danger delete-target-btn"
+                        data-target-id="T001"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T002</td>
+                    <td>Doctor Visits Target</td>
+                    <td>Priya Sharma</td>
+                    <td>Visits</td>
+                    <td>250 visits</td>
+                    <td>198 visits (79%)</td>
+                    <td>2025-12-31</td>
+                    <td><span class="badge bg-success">On Track</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-info edit-target-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editTargetModal"
+                        data-target-id="T002"
+                      >
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-danger delete-target-btn"
+                        data-target-id="T002"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T003</td>
+                    <td>Product Launch Goal</td>
+                    <td>Amit Singh</td>
+                    <td>Product</td>
+                    <td>100 units</td>
+                    <td>45 units (45%)</td>
+                    <td>2025-11-30</td>
+                    <td><span class="badge bg-warning">Behind</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-info edit-target-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editTargetModal"
+                        data-target-id="T003"
+                      >
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-danger delete-target-btn"
+                        data-target-id="T003"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T004</td>
+                    <td>Training Completion</td>
+                    <td>Suresh Reddy</td>
+                    <td>Training</td>
+                    <td>15 sessions</td>
+                    <td>12 sessions (80%)</td>
+                    <td>2025-10-31</td>
+                    <td><span class="badge bg-success">On Track</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-info edit-target-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editTargetModal"
+                        data-target-id="T004"
+                      >
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-danger delete-target-btn"
+                        data-target-id="T004"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T005</td>
+                    <td>Market Expansion</td>
+                    <td>Vikram Patel</td>
+                    <td>Market</td>
+                    <td>5 new areas</td>
+                    <td>2 areas (40%)</td>
+                    <td>2025-12-31</td>
+                    <td><span class="badge bg-warning">Behind</span></td>
+                    <td>
+                      <button
+                        class="btn btn-sm btn-outline-info edit-target-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editTargetModal"
+                        data-target-id="T005"
+                      >
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-danger delete-target-btn"
+                        data-target-id="T005"
+                      >
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <nav>
+              <ul class="pagination justify-content-center flex-wrap"></ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="profileModal"
+      tabindex="-1"
+      aria-labelledby="profileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+          <div class="modal-header bg-body-tertiary border-0 py-3">
+            <h5
+              class="modal-title fw-bold text-body mb-0"
+              id="profileModalLabel"
+            >
+              Profile
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body text-center bg-body px-4 pb-4">
+            <div class="position-relative d-inline-block mb-3">
+              <img
+                src="assest/image/Profile-img.png"
+                alt="Profile Picture"
+                class="rounded-circle border border-2 border-light shadow-sm"
+                style="width: 90px; height: 90px; object-fit: cover"
+              />
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-3 bg-body-secondary">
+              <div class="card-body px-3 py-3">
+                <div class="mb-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Full Name
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">Rahul Sharma</p>
+                </div>
+
+                <div class="mb-3 border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Email
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">
+                    john.doe@kavyapharm.com
+                  </p>
+                </div>
+
+                <div class="border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Phone
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">+91 9876543210</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container-fluid">
+        <p>&copy; 2025 KavyaPharm | All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <div
+      class="modal fade"
+      id="addTargetModal"
+      tabindex="-1"
+      aria-labelledby="addTargetModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addTargetModalLabel">Set New Target</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="addTargetForm">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="targetName" class="form-label">Target Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="targetName"
+                    required
+                    placeholder="Enter target name"
+                    pattern="^[A-Za-z\s]+$"
+                    title="Only letters and spaces are allowed"
+                  />
+                </div>
+
+                <div class="col-md-6">
+                  <label for="targetAssignee" class="form-label"
+                    >Assigned To</label
+                  >
+                  <select class="form-select" id="targetAssignee" required>
+                    <option value="">Select Person</option>
+                    <option value="Rajesh Kumar">Rajesh Kumar</option>
+                    <option value="Priya Sharma">Priya Sharma</option>
+                    <option value="Amit Singh">Amit Singh</option>
+                    <option value="Suresh Reddy">Suresh Reddy</option>
+                    <option value="Vikram Patel">Vikram Patel</option>
+                    <option value="Meera Joshi">Meera Joshi</option>
+                    <option value="John Doe">John Doe</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="targetValue" class="form-label"
+                    >Target Value</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="targetValue"
+                    required
+                    placeholder="Enter numeric value"
+                    min="0"
+                  />
+                </div>
+
+                <div class="col-md-4">
+                  <label for="currentProgressValue" class="form-label"
+                    >Current Progress Value</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="currentProgressValue"
+                    required
+                    value="0"
+                    min="0"
+                    placeholder="e.g., 0"
+                    title="Only numbers are allowed"
+                  />
+                </div>
+
+                <div class="col-md-4">
+                  <label for="targetDeadline" class="form-label"
+                    >Deadline</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="targetDeadline"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="targetType" class="form-label">Type</label>
+                  <select class="form-select" id="targetType" required>
+                    <option value="">Select Type</option>
+                    <option value="General" selected>General</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Visits">Visits</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="targetStatus" class="form-label">Status</label>
+                  <select class="form-select" id="targetStatus" required>
+                    <option value="Behind" selected>Behind</option>
+                    <option value="On Track">On Track</option>
+                    <option value="Complete">Complete</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary" id="saveNewTargetBtn">
+              Save Target
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="editTargetModal"
+      tabindex="-1"
+      aria-labelledby="editTargetModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editTargetModalLabel">
+              Edit Target <span id="editTargetIdDisplay"></span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="editTargetForm">
+              <input type="hidden" id="editTargetOriginalId" />
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="editTargetName" class="form-label"
+                    >Target Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editTargetName"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="editTargetAssignee" class="form-label"
+                    >Assigned To</label
+                  >
+                  <select class="form-select" id="editTargetAssignee" required>
+                    <option value="Rajesh Kumar">Rajesh Kumar</option>
+                    <option value="Priya Sharma">Priya Sharma</option>
+                    <option value="Amit Singh">Amit Singh</option>
+                    <option value="Suresh Reddy">Suresh Reddy</option>
+                    <option value="Vikram Patel">Vikram Patel</option>
+                    <option value="Meera Joshi">Meera Joshi</option>
+                    <option value="John Doe">John Doe</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label for="editTargetValue" class="form-label"
+                    >Target Value</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="editTargetValue"
+                    required
+                    min="0"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="editCurrentProgressValue" class="form-label"
+                    >Current Progress Value</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="editCurrentProgressValue"
+                    required
+                    min="0"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="editTargetDeadline" class="form-label"
+                    >Deadline</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="editTargetDeadline"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="editTargetType" class="form-label">Type</label>
+                  <select class="form-select" id="editTargetType" required>
+                    <option value="General">General</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Visits">Visits</option>
+                    <option value="Product">Product</option>
+                    <option value="Training">Training</option>
+                    <option value="Market">Market</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="editTargetStatus" class="form-label"
+                    >Status</label
+                  >
+                  <select class="form-select" id="editTargetStatus" required>
+                    <option value="On Track">On Track</option>
+                    <option value="Behind">Behind</option>
+                    <option value="Complete">Complete</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              id="saveEditTargetBtn"
+            >
+              Update Target
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assest/js/script.js"></script>
+    <script src="assest/js/target-management.js"></script>
+  </body>
+</html>

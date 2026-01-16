@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attendance Records | MR Dashboard</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Admin Layout CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+
+      <button class="btn btn-outline-secondary me-3" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <!-- <h5 class="mt-2 fw-bold">Attendance Records</h5> -->
+
+      <div class="d-flex ms-auto">
+        <!-- <button class="btn btn-outline-secondary me-2" id="themeToggle">
+          <i class="bi bi-moon"></i>
+        </button> -->
+
+            <div class="dropdown">
+  <button class="btn btn-outline-secondary me-2 position-relative" 
+          id="notificationsBtn" 
+          data-bs-toggle="dropdown">
+    <i class="bi bi-bell"></i>
+
+    <!-- Red Dot -->
+    <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+  </button>
+
+  <ul class="dropdown-menu dropdown-menu-end shadow p-2" style="width:280px;">
+    <li class="dropdown-header fw-bold">Notifications</li>
+
+    <li>
+      <div class="dropdown-item small">
+        <i class="bi bi-info-circle text-primary me-2"></i>
+        New doctor added by Super Admin
+      </div>
+    </li>
+
+    <li>
+      <div class="dropdown-item small">
+        <i class="bi bi-person-check text-success me-2"></i>
+        3 doctors assigned to MR John
+      </div>
+    </li>
+
+    <li>
+      <div class="dropdown-item small">
+        <i class="bi bi-envelope-open text-warning me-2"></i>
+        Pending approval for expenses
+      </div>
+    </li>
+
+    <li><hr class="dropdown-divider" /></li>
+
+    <!-- <li class="text-center">
+      <a class="dropdown-item small text-primary" href="Notification.html">
+        View All Notifications →
+      </a>
+    </li> -->
+  </ul>
+</div>
+
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle"></i>
+          </button>
+         <ul class="dropdown-menu dropdown-menu-end">
+            <li><a
+  class="dropdown-item"
+  href="#"
+  data-bs-toggle="modal"
+  data-bs-target="#profileModal"
+>
+  Profile
+</a></li>
+            <li><a class="dropdown-item" href="Profile.html">Settings</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+
+    <div class="sidebar-header text-center py-3">
+     <img src="assets/images/image.png" class="logo light-logo" />
+      <!-- <img src="assets/images/logo-dark.png" class="logo dark-logo" /> -->
+    </div>
+
+    <ul class="sidebar-menu mb-5">
+      <li><a href="index.html"><i class="bi bi-house-door"></i> Dashboard</a></li>
+      <li class="active"><a href="attendance.html"><i class="bi bi-clipboard-check"></i> Attendance</a></li>
+      <li><a href="doctorvisit.html"><i class="bi bi-clipboard-plus"></i> Doctor Visits (DCR)</a></li>
+      <li><a href="samples.html"><i class="bi bi-box-seam"></i> Sample & Stock</a></li>
+      <li><a href="expenses.html"><i class="bi bi-cash-stack"></i> Expenses</a></li>
+      <li><a href="sales.html"><i class="bi bi-graph-up"></i> Sales Performance</a></li>
+    </ul>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content" id="mainContent">
+
+    <div class="container-fluid mt-5 pt-4">
+
+      <h4 class="fw-bold mb-3">
+        <i class="bi bi-clipboard-check me-2"></i>
+        Daily Attendance Records
+      </h4>
+
+      <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Attendance List</h5>
+        </div>
+
+        <div class="card-body p-0">
+          <table class="table table-hover mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Date</th>
+                <th>Check-In</th>
+                <th>Check-Out</th>
+                <th>Total Hours</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="attendanceTableBody"></tbody>
+
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- 🧑‍💼 Profile Info Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title"><i class="bi bi-person-circle me-2"></i>MR Profile</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center p-4">
+       <!-- Profile Image -->
+<img
+  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+  alt="Profile Icon"
+  class="rounded-circle mb-3 shadow border"
+  width="110"
+  height="110"
+/>
+
+
+        <!-- Admin Info -->
+        <h5 id="profileName" class="fw-bold mb-1 text-dark"></h5>
+        <p id="profileEmail" class="text-muted mb-3"></p>
+
+        <div class="alert alert-light border text-start small">
+          <i class="bi bi-info-circle me-1 text-primary"></i>
+          Logged in as <strong>Regional MR</strong>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Layout Script (sidebar + theme) -->
+  <script src="assets/js/layout.js"></script>
+
+  <!-- Attendance Logic -->
+  <script src="assets/js/attendance.js"></script>
+
+</body>
+</html>

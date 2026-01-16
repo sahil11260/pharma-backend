@@ -1,0 +1,453 @@
+/* ===============================
+    KavyaPharm Reports Page Styles
+    =============================== */
+
+/* Navbar */
+.navbar {
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background: #f8f9fa;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background: #f8f9fa;
+  transition: transform 0.3s ease;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-250px);
+}
+
+.sidebar-header {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-header img {
+  width: 150px;
+  transition: 0.3s ease;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 14px 20px;
+  color: #495057;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu li a i {
+  margin-right: 10px;
+}
+
+.sidebar-menu li a:hover {
+  background: #e9ecef;
+  color: #0d6efd;
+}
+
+.sidebar-menu li.active a {
+  background: #0d6efd;
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 250px;
+  margin-top: 60px;
+  transition: margin-left 0.3s ease;
+  min-height: calc(100vh - 60px - 60px);
+}
+
+.main-content.expanded {
+  margin-left: 0;
+}
+
+/* Cards Common Style */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* Report Cards */
+.report-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.report-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.report-card .card-header {
+  border-radius: 12px 12px 0 0 !important;
+}
+
+.report-card.pending .card-header {
+  background: linear-gradient(45deg, #ffc107, #fd7e14);
+  color: white;
+}
+
+.report-card.approved .card-header {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+}
+
+.report-card.rejected .card-header {
+  background: linear-gradient(45deg, #dc3545, #e74c3c);
+  color: white;
+}
+
+.report-card.requires-action .card-header {
+  background: linear-gradient(45deg, #6f42c1, #e83e8c);
+  color: white;
+}
+
+.report-card .status-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+}
+
+/* Summary Cards */
+.summary-card {
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.summary-card .card-body {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary-card .card-body h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  text-align: left;
+}
+
+.summary-card .card-body h5 {
+  font-size: 14px;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.summary-card .card-content {
+  flex: 1;
+  text-align: left;
+}
+
+.summary-card .card-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* Color Gradients for Summary */
+.summary-pending {
+  background: linear-gradient(45deg, #ffc107, #fd7e14);
+}
+
+.summary-approved {
+  background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.summary-rejected {
+  background: linear-gradient(45deg, #dc3545, #e74c3c);
+}
+
+.summary-action {
+  background: linear-gradient(45deg, #6f42c1, #e83e8c);
+}
+
+/* Report Details Modal */
+.report-details {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.report-details h6 {
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.report-details p {
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.report-feedback {
+  background: white;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  margin-bottom: 10px;
+}
+
+.report-feedback .feedback-rating {
+  color: #ffc107;
+  font-size: 1.1rem;
+}
+
+.report-attachment {
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  margin-bottom: 10px;
+}
+
+.report-attachment img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Footer */
+.footer {
+  background: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .navbar {
+  background: #1e1e1e !important;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a {
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a:hover {
+  background: #333;
+  color: #0d6efd;
+}
+
+body.dark-mode .sidebar-menu li.active a {
+  background: #0d6efd;
+}
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .card-header {
+  background: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .footer {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .report-card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .report-card.pending .card-header {
+  background: linear-gradient(45deg, #cc8400, #daa520);
+}
+
+body.dark-mode .report-card.approved .card-header {
+  background: linear-gradient(45deg, #006400, #228b22);
+}
+
+body.dark-mode .report-card.rejected .card-header {
+  background: linear-gradient(45deg, #8b0000, #b22222);
+}
+
+body.dark-mode .report-card.requires-action .card-header {
+  background: linear-gradient(45deg, #4b0082, #a02669);
+}
+
+body.dark-mode .report-card .text-muted {
+  color: #cccccc !important;
+}
+
+body.dark-mode .report-card .text-primary {
+  color: #4dabf7 !important;
+}
+
+body.dark-mode .report-card .card-header h6 {
+  color: #ffffff !important;
+}
+
+body.dark-mode .status-badge {
+  color: #000 !important;
+}
+
+body.dark-mode .report-details {
+  background: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .report-feedback {
+  background: #1e1e1e;
+  border-color: #444;
+}
+
+body.dark-mode .report-attachment {
+  background: #1e1e1e;
+  border-color: #444;
+}
+
+body.dark-mode .summary-card .card-body h3,
+body.dark-mode .summary-card .card-body h5,
+body.dark-mode .summary-card .card-body i {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-content {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .modal-header {
+  background: #2d2d2d;
+  color: #ffffff;
+  border-bottom: 1px solid #444;
+}
+
+body.dark-mode .modal-footer {
+  background: #2d2d2d;
+  color: #ffffff;
+  border-top: 1px solid #444;
+}
+
+/* Logo Dark/Light Toggle */
+.light-logo {
+  display: block;
+}
+
+.dark-logo {
+  display: none;
+}
+
+body.dark-mode .light-logo {
+  display: none;
+}
+
+body.dark-mode .dark-logo {
+  display: block;
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-250px);
+  }
+
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .summary-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .summary-card h5 {
+    font-size: 0.9rem;
+  }
+
+  .report-card .card-body .row .col-6 {
+    margin-bottom: 10px;
+  }
+
+  .report-card .status-badge {
+    position: static;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .report-details {
+    padding: 10px;
+  }
+}
+
+.card-body.text-center small.text-muted {
+  color: white !important;
+}

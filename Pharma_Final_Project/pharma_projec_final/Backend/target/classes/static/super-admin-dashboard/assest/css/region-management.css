@@ -1,0 +1,16 @@
+/* ✅ Fix: Ensure modal text is visible in dark mode */
+body.dark-mode .modal-content,
+body.dark-mode .modal-body,
+body.dark-mode .modal-header,
+body.dark-mode .modal-footer {
+  background-color: #1e1e1e !important;
+  color: #f1f1f1 !important;
+}
+
+body.dark-mode .modal-content a {
+  color: #4da3ff !important;
+}
+
+body.dark-mode .modal-header .btn-close {
+  filter: invert(1);
+}

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assest/image/fevicon-icon.png" />
+    <title>KavyaPharm - Notifications</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assest/css/style.css" rel="stylesheet" />
+    <link href="assest/css/notifications.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container-fluid">
+        <button class="btn btn-outline-secondary me-3" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="d-flex">
+          <button class="btn btn-outline-secondary me-2" id="themeToggle">
+            <i class="bi bi-moon"></i>
+          </button>
+          <button class="btn btn-outline-secondary me-2" id="notificationBtn">
+            <i class="bi bi-bell"></i>
+            <span
+              class="badge bg-danger rounded-pill ms-1"
+              id="notificationBadge"
+              style="display: none"
+              >0</span
+            >
+          </button>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              id="userDropdown"
+              data-bs-toggle="dropdown"
+            >
+              <i class="bi bi-person-circle"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#profileModal"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="profile-settings.html">
+                  Profile Settings</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img src="assest/image/image.png" alt="logo" class="logo light-logo" />
+        <img
+          src="assest/image/logo-dark.png"
+          alt="logo"
+          class="logo dark-logo"
+        />
+      </div>
+
+      <ul class="sidebar-menu mb-5">
+        <li>
+          <a href="index.html"><i class="bi bi-house-door"></i> Dashboard</a>
+        </li>
+
+        <li>
+          <a href="user-management.html">
+            <i class="bi bi-people"></i> User Management
+          </a>
+        </li>
+
+        <li>
+          <a href="region-management.html">
+            <i class="bi bi-geo-alt"></i> Region Management
+          </a>
+        </li>
+
+        <li>
+          <a href="product-management.html">
+            <i class="bi bi-box-seam"></i> Product Management
+          </a>
+        </li>
+
+        <li>
+          <a href="target-management.html">
+            <i class="bi bi-bullseye"></i> Target Management
+          </a>
+        </li>
+
+        <li>
+          <a href="expense-oversight.html">
+            <i class="bi bi-cash-stack"></i> Expense Oversight
+          </a>
+        </li>
+
+        <li>
+          <a href="analytics-reports.html">
+            <i class="bi bi-graph-up"></i> Analytics & Reports
+          </a>
+        </li>
+
+        <li>
+          <a href="ai-insights.html">
+            <i class="bi bi-lightbulb"></i> AI Insights
+          </a>
+        </li>
+
+        <li class="active">
+          <a href="notifications.html">
+            <i class="bi bi-bell"></i> Notifications
+            <span
+              class="badge bg-danger rounded-pill ms-auto"
+              id="sidebarNotificationBadge"
+              style="display: none"
+              >0</span
+            >
+          </a>
+        </li>
+
+        <li>
+          <a href="settings.html"> <i class="bi bi-gear"></i> Settings </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="main-content" id="mainContent">
+      <div class="container-fluid mt-5 pt-4">
+        <h1 class="mb-4"><i class="bi bi-bell-fill"></i> Notifications</h1>
+        <hr />
+
+        <!-- Statistics Dashboard -->
+        <div class="row mb-4">
+          <div class="col-md-3 mb-3">
+            <div
+              class="card"
+              style="
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+              "
+            >
+              <div class="card-body text-center">
+                <div
+                  class="d-flex align-items-center justify-content-center mb-3"
+                >
+                  <i class="bi bi-bell fs-1 me-3"></i>
+                  <div class="text-start">
+                    <h2 class="mb-0 fw-bold" id="totalNotifications">0</h2>
+                    <small>Total Notifications</small>
+                  </div>
+                </div>
+                <div class="progress" style="height: 6px">
+                  <div class="progress-bar bg-white" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div
+              class="card"
+              style="
+                background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+                color: white;
+              "
+            >
+              <div class="card-body text-center">
+                <div
+                  class="d-flex align-items-center justify-content-center mb-3"
+                >
+                  <i class="bi bi-envelope-exclamation fs-1 me-3"></i>
+                  <div class="text-start">
+                    <h2 class="mb-0 fw-bold" id="unreadNotifications">0</h2>
+                    <small>Unread Messages</small>
+                  </div>
+                </div>
+                <div class="progress" style="height: 6px">
+                  <div
+                    class="progress-bar bg-white"
+                    id="unreadProgress"
+                    style="width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div
+              class="card"
+              style="
+                background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+                color: #333;
+              "
+            >
+              <div class="card-body text-center">
+                <div
+                  class="d-flex align-items-center justify-content-center mb-3"
+                >
+                  <i class="bi bi-exclamation-triangle fs-1 me-3"></i>
+                  <div class="text-start">
+                    <h2 class="mb-0 fw-bold" id="alertNotifications">0</h2>
+                    <small>Critical Alerts</small>
+                  </div>
+                </div>
+                <div class="progress" style="height: 6px">
+                  <div
+                    class="progress-bar bg-dark"
+                    id="alertProgress"
+                    style="width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <div
+              class="card"
+              style="
+                background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+                color: #333;
+              "
+            >
+              <div class="card-body text-center">
+                <div
+                  class="d-flex align-items-center justify-content-center mb-3"
+                >
+                  <i class="bi bi-gear fs-1 me-3"></i>
+                  <div class="text-start">
+                    <h2 class="mb-0 fw-bold" id="systemNotifications">0</h2>
+                    <small>System Updates</small>
+                  </div>
+                </div>
+                <div class="progress" style="height: 6px">
+                  <div
+                    class="progress-bar bg-dark"
+                    id="systemProgress"
+                    style="width: 0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h5 class="mb-0">All Notifications</h5>
+            <small class="text-muted"
+              >Showing <span id="showingCount">0</span> of
+              <span id="totalCount">0</span> notifications</small
+            >
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-success" id="markAllReadBtn">
+              <i class="bi bi-check-all me-2"></i>Mark All Read
+            </button>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addNotificationModal"
+            >
+              <i class="bi bi-plus-circle me-2"></i>Add New Notification
+            </button>
+          </div>
+        </div>
+
+        <!-- Advanced Filters -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <label class="form-label fw-bold">Priority Level</label>
+                <div id="priorityFilterButtons">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="priorityFilter"
+                      id="priorityAll"
+                      checked
+                    />
+                    <label class="form-check-label" for="priorityAll"
+                      >All</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="priorityFilter"
+                      id="priorityHigh"
+                    />
+                    <label class="form-check-label" for="priorityHigh"
+                      >High</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="priorityFilter"
+                      id="priorityNormal"
+                    />
+                    <label class="form-check-label" for="priorityNormal"
+                      >Normal</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="priorityFilter"
+                      id="priorityLow"
+                    />
+                    <label class="form-check-label" for="priorityLow"
+                      >Low</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-bold">Notification Type</label>
+                <div id="typeFilterButtons">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="typeFilter"
+                      id="filterAll"
+                      checked
+                    />
+                    <label class="form-check-label" for="filterAll"
+                      >All Types</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="typeFilter"
+                      id="filterSystem"
+                    />
+                    <label class="form-check-label" for="filterSystem"
+                      >System</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="typeFilter"
+                      id="filterUser"
+                    />
+                    <label class="form-check-label" for="filterUser"
+                      >User</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="typeFilter"
+                      id="filterAlert"
+                    />
+                    <label class="form-check-label" for="filterAlert"
+                      >Alert</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-bold">Read Status</label>
+                <div id="statusFilterButtons">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="statusFilter"
+                      id="statusAll"
+                      checked
+                    />
+                    <label class="form-check-label" for="statusAll"
+                      >All Status</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="statusFilter"
+                      id="statusRead"
+                    />
+                    <label class="form-check-label" for="statusRead"
+                      >Read</label
+                    >
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="statusFilter"
+                      id="statusUnread"
+                    />
+                    <label class="form-check-label" for="statusUnread"
+                      >Unread</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label fw-bold">Search & Filter</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="notificationSearchInput"
+                    placeholder="Search notifications..."
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="clearSearchBtn"
+                  >
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications Table -->
+        <div class="card">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table
+                class="table table-striped table-hover mb-0"
+                id="notificationTable"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th class="ps-3">
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="selectAllCheckbox"
+                        />
+                        <label
+                          class="form-check-label visually-hidden"
+                          for="selectAllCheckbox"
+                          >Select All</label
+                        >
+                      </div>
+                    </th>
+                    <th>ID</th>
+                    <th>Priority</th>
+                    <th>Title</th>
+                    <th>Message</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="notificationTableBody">
+                  <!-- Notifications will be loaded here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center gap-2">
+                <select
+                  class="form-select"
+                  id="itemsPerPage"
+                  style="width: auto"
+                >
+                  <option value="10">10 per page</option>
+                  <option value="25">25 per page</option>
+                  <option value="50">50 per page</option>
+                  <option value="100">100 per page</option>
+                </select>
+                <button class="btn btn-danger" id="bulkDeleteBtn" disabled>
+                  <i class="bi bi-trash me-1"></i>Delete Selected (<span
+                    id="selectedCount"
+                    >0</span
+                  >)
+                </button>
+              </div>
+              <nav aria-label="Notifications pagination">
+                <ul class="pagination mb-0" id="paginationContainer">
+                  <!-- Pagination will be generated here -->
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="profileModal"
+      tabindex="-1"
+      aria-labelledby="profileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+          <div class="modal-header bg-body-tertiary border-0 py-3">
+            <h5
+              class="modal-title fw-bold text-body mb-0"
+              id="profileModalLabel"
+            >
+              Profile
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body text-center bg-body px-4 pb-4">
+            <div class="position-relative d-inline-block mb-3">
+              <img
+                src="assest/image/Profile-img.png"
+                alt="Profile Picture"
+                class="rounded-circle border border-2 border-light shadow-sm"
+                style="width: 90px; height: 90px; object-fit: cover"
+              />
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-3 bg-body-secondary">
+              <div class="card-body px-3 py-3">
+                <div class="mb-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Full Name
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">Rahul Sharma</p>
+                </div>
+
+                <div class="mb-3 border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Email
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">
+                    john.doe@kavyapharm.com
+                  </p>
+                </div>
+
+                <div class="border-top pt-3">
+                  <h6 class="text-secondary text-uppercase small mb-1">
+                    Phone
+                  </h6>
+                  <p class="fw-semibold text-body mb-0">+91 9876543210</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="addNotificationModal"
+      tabindex="-1"
+      aria-labelledby="addNotificationModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" data-bs-theme="dark">
+        <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addNotificationModalLabel">
+              Create New Notification
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <form id="notificationForm">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="notificationTitle" class="form-label"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="notificationTitle"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="notificationType" class="form-label">Type</label>
+                  <select class="form-select" id="notificationType" required>
+                    <option value="">Select Type</option>
+                    <option value="System">System</option>
+                    <option value="User">User</option>
+                    <option value="Alert">Alert</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="notificationPriority" class="form-label"
+                    >Priority</label
+                  >
+                  <select class="form-select" id="notificationPriority">
+                    <option value="Low">Low</option>
+                    <option value="Normal" selected>Normal</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="notificationStatus" class="form-label"
+                    >Status</label
+                  >
+                  <select class="form-select" id="notificationStatus">
+                    <option value="Unread" selected>Unread</option>
+                    <option value="Read">Read</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="notificationMessage" class="form-label"
+                  >Message</label
+                >
+                <textarea
+                  class="form-control"
+                  id="notificationMessage"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="saveNotificationBtn"
+            >
+              Save Notification
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="viewNotificationModal"
+      tabindex="-1"
+      aria-labelledby="viewNotificationModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered"
+        data-bs-theme="dark"
+      >
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="viewNotificationModalLabel">
+              Notification Details
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div
+            class="modal-body bg-dark text-white"
+            id="viewNotificationDetailsBody"
+          >
+            Loading...
+          </div>
+          <div class="modal-footer bg-dark">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container-fluid">
+        <p>&copy; 2025 KavyaPharm | All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assest/js/script.js"></script>
+    <script src="assest/js/notifications.js"></script>
+  </body>
+</html>

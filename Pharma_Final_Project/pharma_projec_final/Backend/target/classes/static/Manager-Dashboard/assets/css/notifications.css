@@ -1,0 +1,532 @@
+/* ===============================
+    KavyaPharm Notifications Page Styles
+    =============================== */
+
+/* Navbar */
+.navbar {
+  height: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background: #f8f9fa;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background: #f8f9fa;
+  transition: transform 0.3s ease;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-250px);
+}
+
+.sidebar-header {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-header img {
+  width: 150px;
+  transition: 0.3s ease;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.sidebar-menu li a {
+  display: block;
+  padding: 14px 20px;
+  color: #495057;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu li a i {
+  margin-right: 10px;
+}
+
+.sidebar-menu li a:hover {
+  background: #e9ecef;
+  color: #0d6efd;
+}
+
+.sidebar-menu li.active a {
+  background: #0d6efd;
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 250px;
+  margin-top: 60px;
+  transition: margin-left 0.3s ease;
+  min-height: calc(100vh - 60px - 60px);
+}
+
+.main-content.expanded {
+  margin-left: 0;
+}
+
+/* Cards Common Style */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* Notification Cards */
+.notification-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.notification-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.notification-card.meeting {
+  border-left: 4px solid #0d6efd;
+}
+
+.notification-card.reminder {
+  border-left: 4px solid #ffc107;
+}
+
+.notification-card.update {
+  border-left: 4px solid #28a745;
+}
+
+.notification-card.alert {
+  border-left: 4px solid #dc3545;
+}
+
+.notification-card.motivation {
+  border-left: 4px solid #e83e8c;
+}
+
+.notification-card .card-header {
+  border-radius: 12px 12px 0 0 !important;
+  padding: 12px 16px;
+}
+
+.notification-card .card-body {
+  padding: 16px;
+}
+
+.notification-card .notification-meta {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-bottom: 8px;
+}
+
+.notification-card .notification-content {
+  margin-bottom: 12px;
+}
+
+.notification-card .notification-actions {
+  border-top: 1px solid #dee2e6;
+  padding-top: 12px;
+  margin-top: 12px;
+}
+
+/* Stats Cards */
+.stats-card {
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.stats-card .card-body {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stats-card .card-body h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  text-align: left;
+}
+
+.stats-card .card-body h5 {
+  font-size: 14px;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.stats-card .card-content {
+  flex: 1;
+  text-align: left;
+}
+
+.stats-card .card-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* Color Gradients for Stats */
+.stats-sent {
+  background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.stats-delivered {
+  background: linear-gradient(45deg, #0d6efd, #4dabf7);
+}
+
+.stats-read {
+  background: linear-gradient(45deg, #ffc107, #fd7e14);
+}
+
+.stats-pending {
+  background: linear-gradient(45deg, #6c757d, #adb5bd);
+}
+
+/* Quick Action Buttons */
+.btn-outline-primary:hover,
+.btn-outline-warning:hover,
+.btn-outline-info:hover,
+.btn-outline-success:hover,
+.btn-outline-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Template List */
+.list-group-item:hover {
+  background: #f8f9fa;
+  cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  background: #f8f9fa;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .navbar {
+  background: #1e1e1e !important;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a {
+  color: #ffffff;
+}
+
+body.dark-mode .sidebar-menu li a:hover {
+  background: #333;
+  color: #0d6efd;
+}
+
+body.dark-mode .sidebar-menu li.active a {
+  background: #0d6efd;
+}
+
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .card-header {
+  background: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .footer {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .notification-card {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .notification-card .notification-meta {
+  color: #adb5bd;
+}
+
+body.dark-mode .list-group-item {
+  background: #1e1e1e;
+  color: #ffffff;
+  border-color: #444;
+}
+
+body.dark-mode .list-group-item:hover {
+  background: #333;
+}
+
+body.dark-mode .stats-card .card-body h3,
+body.dark-mode .stats-card .card-body h5,
+body.dark-mode .stats-card .card-body i {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-content {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .modal-header {
+  background: #2d2d2d;
+  color: #ffffff;
+  border-bottom: 1px solid #444;
+}
+
+body.dark-mode .modal-footer {
+  background: #2d2d2d;
+  color: #ffffff;
+  border-top: 1px solid #444;
+}
+
+/* Logo Dark/Light Toggle */
+.light-logo {
+  display: block;
+}
+
+.dark-logo {
+  display: none;
+}
+
+body.dark-mode .light-logo {
+  display: none;
+}
+
+body.dark-mode .dark-logo {
+  display: block;
+}
+
+/* Notification Modal Styles */
+.notification-item {
+  border-bottom: 1px solid #dee2e6;
+  transition: background-color 0.2s ease;
+}
+
+.notification-item:hover {
+  background-color: #f8f9fa;
+}
+
+.notification-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+body.dark-mode .notification-item {
+  border-bottom-color: #444;
+}
+
+body.dark-mode .notification-item:hover {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .text-muted {
+  color: #cccccc !important;
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-250px);
+  }
+
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .stats-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .stats-card h5 {
+    font-size: 0.9rem;
+  }
+
+  .notification-card {
+    margin-bottom: 10px;
+  }
+
+  .d-grid .btn {
+    margin-bottom: 8px;
+  }
+}
+
+/* Notification Priority Indicators */
+.notification-priority-high {
+  border-left: 4px solid #dc3545 !important;
+}
+
+.notification-priority-urgent {
+  border-left: 4px solid #dc3545 !important;
+  background: rgba(220, 53, 69, 0.05);
+}
+
+.notification-priority-urgent .card-header {
+  background: linear-gradient(45deg, #dc3545, #e74c3c) !important;
+  color: white;
+}
+
+/* Status Badges */
+.status-badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+.status-sent {
+  background: #28a745;
+  color: white;
+}
+
+.status-delivered {
+  background: #0d6efd;
+  color: white;
+}
+
+.status-read {
+  background: #ffc107;
+  color: black;
+}
+
+.status-failed {
+  background: #dc3545;
+  color: white;
+}
+
+/* Custom styles for professional appearance */
+/* Add this to style.css or a dedicated CSS file */
+
+/* Priority Highlighting on Table Rows */
+.priority-high {
+  border-left: 5px solid #dc3545; /* Red for High Priority */
+}
+.priority-normal {
+  border-left: 5px solid #ffc107; /* Yellow for Normal Priority */
+}
+.priority-low {
+  border-left: 5px solid #198754; /* Green for Low Priority */
+}
+
+/* Ensure row hover is subtle and professional */
+.table-striped tbody tr:nth-of-type(odd):hover,
+.table-striped tbody tr:nth-of-type(even):hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Make action buttons less distracting but clear */
+.action-btn {
+  font-size: 0.8rem;
+}
+
+/* View Modal Styling for both Light/Dark Modes (Overriding the HTML provided data-bs-theme="dark" for View Modal) */
+/* Light Mode (Default) */
+#viewNotificationModal .modal-content {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+#viewNotificationModal .bg-primary {
+  background-color: #0d6efd !important; /* Bootstrap Primary */
+}
+#viewNotificationModal .modal-body {
+  padding: 1rem 1.5rem;
+}
+#viewNotificationModal .modal-footer {
+  border-top: 1px solid #dee2e6;
+}
+
+/* Dark Mode Overrides for View Modal */
+[data-bs-theme="dark"] #viewNotificationModal .modal-content {
+  background-color: #212529;
+  color: #f8f9fa;
+}
+[data-bs-theme="dark"] #viewNotificationModal .modal-body {
+  background-color: #212529;
+  color: #f8f9fa;
+}
+[data-bs-theme="dark"] #viewNotificationModal .modal-footer {
+  background-color: #212529;
+  border-top-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Fix text color contrast in View Modal's detail rows for dark mode */
+[data-bs-theme="dark"] #viewNotificationDetailsBody .text-dark,
+[data-bs-theme="dark"] #viewNotificationDetailsBody .bg-light {
+  color: #f8f9fa !important;
+  background-color: #343a40 !important;
+}
+
