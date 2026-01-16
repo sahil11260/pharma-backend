@@ -1,3 +1,17 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# IDE files
+.idea/
+.vscode/
+
+# Maven
+target/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
