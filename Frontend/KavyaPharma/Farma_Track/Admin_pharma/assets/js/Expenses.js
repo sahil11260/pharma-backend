@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE = "";
+  const API_BASE = "https://pharma-backend-hxf9.onrender.com";
   const EXPENSES_API_BASE = `${API_BASE}/api/expenses`;
   const STORAGE_KEY = "kavyaPharmAdminExpensesData";
   let expensesApiMode = true;
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const res = await fetch("/api/uploads", {
+      const res = await fetch("https://pharma-backend-hxf9.onrender.com/api/uploads", {
         method: "POST",
         headers: getAuthHeader(),
         body: formData

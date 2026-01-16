@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const API_BASE = "";
+  const API_BASE = "https://pharma-backend-hxf9.onrender.com";
   const NOTIFICATIONS_API_BASE = `${API_BASE}/api/notifications`;
   const STORAGE_KEY = "kavyaPharmNotifications";
   let notificationsApiMode = true;

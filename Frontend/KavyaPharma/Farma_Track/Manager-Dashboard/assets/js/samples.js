@@ -22,7 +22,7 @@ function saveData(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
-const API_BASE = "";
+const API_BASE = "https://pharma-backend-hxf9.onrender.com";
 const MR_STOCK_API_BASE = `${API_BASE}/api/mr-stock`;
 const STOCK_RECEIVED_API_BASE = `${API_BASE}/api/stock-received`;
 let samplesApiMode = true;

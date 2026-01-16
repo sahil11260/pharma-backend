@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const API_BASE = "";
+  const API_BASE = "https://pharma-backend-hxf9.onrender.com";
   const EXPENSES_API_BASE = `${API_BASE}/api/expenses`;
   const expenseTableBody = document.getElementById("expenseTableBody");
   const expenseForm = document.getElementById("expenseForm");

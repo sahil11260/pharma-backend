@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  const API_BASE = "";
+  const API_BASE = "https://pharma-backend-hxf9.onrender.com";
   const API = {
     USERS: `${API_BASE}/api/users`,
     DOCTORS: `${API_BASE}/api/doctors`,

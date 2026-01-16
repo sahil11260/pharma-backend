@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // --- CONFIGURATION ---
     const PAGE_SIZE = 5; // Expenses per page
     let currentPage = 1;
-    const API_BASE = "/api/mr-expenses";
+    const API_BASE = "https://pharma-backend-hxf9.onrender.com/api/mr-expenses";
     let expenseList = [];
 
     // --- ELEMENTS & MODALS ---
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const formData = new FormData();
         formData.append("file", file);
         try {
-            const res = await fetch("/api/uploads", {
+            const res = await fetch("https://pharma-backend-hxf9.onrender.com/api/uploads", {
                 method: "POST",
                 headers: getAuthHeader(),
                 body: formData

@@ -1,6 +1,6 @@
 // --- PERSISTENCE SETUP ---
 const STORAGE_KEY = "kavyaPharmDoctorsData";
-const API_BASE = "";
+const API_BASE = "https://pharma-backend-hxf9.onrender.com";
 const DOCTORS_API_BASE = `${API_BASE}/api/doctors`;
 let doctorsApiMode = true;
 

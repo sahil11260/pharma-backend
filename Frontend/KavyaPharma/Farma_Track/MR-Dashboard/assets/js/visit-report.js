@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const PAGE_SIZE = 3;
 
     const API = {
-        DCRS: '/api/dcrs',
-        MR_STOCK: '/api/mr-stock'
+        DCRS: 'https://pharma-backend-hxf9.onrender.com/api/dcrs',
+        MR_STOCK: 'https://pharma-backend-hxf9.onrender.com/api/mr-stock'
     };
 
     let apiMode = true;

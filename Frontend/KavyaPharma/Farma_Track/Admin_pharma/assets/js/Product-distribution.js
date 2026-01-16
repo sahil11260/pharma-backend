@@ -2,7 +2,7 @@
 // Product Distribution with Price Display
 document.addEventListener("DOMContentLoaded", () => {
 
-  const API_BASE = "";
+  const API_BASE = "https://pharma-backend-hxf9.onrender.com";
   const PRODUCTS_API_BASE = `${API_BASE}/api/products`;
   const STOCK_STORAGE_KEY = "receivedStock";
   const ALLOCATIONS_STORAGE_KEY = "allocations";

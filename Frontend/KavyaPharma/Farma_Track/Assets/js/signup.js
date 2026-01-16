@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   const form = document.getElementById("signupForm");
-  const API_BASE = "";
+  const API_BASE = "https://pharma-backend-hxf9.onrender.com";
 
   const nameField = document.getElementById("name");
   const emailField = document.getElementById("email");

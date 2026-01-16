@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         const payload = { email: emailVal, password: passVal };
 
-        const res = await fetch("/api/auth/login", {
+        const res = await fetch("https://pharma-backend-hxf9.onrender.com/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)

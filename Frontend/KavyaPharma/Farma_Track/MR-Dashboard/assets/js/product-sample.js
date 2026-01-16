@@ -2,9 +2,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     // --- MOCK DATA SETUP ---
     const API = {
-        MR_STOCK: '/api/mr-stock',
-        STOCK_RECEIVED: '/api/stock-received',
-        DCRS: '/api/dcrs'
+        MR_STOCK: 'https://pharma-backend-hxf9.onrender.com/api/mr-stock',
+        STOCK_RECEIVED: 'https://pharma-backend-hxf9.onrender.com/api/stock-received',
+        DCRS: 'https://pharma-backend-hxf9.onrender.com/api/dcrs'
     };
 
     async function apiJson(url, options) {

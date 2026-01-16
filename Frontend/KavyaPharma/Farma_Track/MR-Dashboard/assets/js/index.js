@@ -24,11 +24,11 @@
   };
 
   const API = {
-    DASHBOARD: "/api/mr-dashboard",
-    ATT_TODAY: "/api/attendance/today",
-    ATT_CHECK_IN: "/api/attendance/check-in",
-    ATT_CHECK_OUT: "/api/attendance/check-out",
-    ATT_CLEAR_TODAY: "/api/attendance/clear-today"
+    DASHBOARD: "https://pharma-backend-hxf9.onrender.com/api/mr-dashboard",
+    ATT_TODAY: "https://pharma-backend-hxf9.onrender.com/api/attendance/today",
+    ATT_CHECK_IN: "https://pharma-backend-hxf9.onrender.com/api/attendance/check-in",
+    ATT_CHECK_OUT: "https://pharma-backend-hxf9.onrender.com/api/attendance/check-out",
+    ATT_CLEAR_TODAY: "https://pharma-backend-hxf9.onrender.com/api/attendance/clear-today"
   };
 
   const $id = id => document.getElementById(id);

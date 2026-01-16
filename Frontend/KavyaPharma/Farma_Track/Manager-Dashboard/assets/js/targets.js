@@ -21,7 +21,7 @@
   // Persistence setup
   const STORAGE_KEY = "kavyaPharmTargetsData";
 
-  const API_BASE = "";
+  const API_BASE = "https://pharma-backend-hxf9.onrender.com";
   const TARGETS_API_BASE = `${API_BASE}/api/targets`;
   let targetsApiMode = true;
 

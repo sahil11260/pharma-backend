@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const API_BASE = "";
+  const API_BASE = "https://pharma-backend-hxf9.onrender.com";
   const PRODUCTS_API_BASE = `${API_BASE}/api/products`;
   const STORAGE_KEY = "kavyaPharmProducts";
   let productsApiMode = true;

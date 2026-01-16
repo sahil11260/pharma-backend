@@ -30,7 +30,7 @@ const initialZoneData = [
   },
 ];
 
-const API_BASE = "";
+const API_BASE = "https://pharma-backend-hxf9.onrender.com";
 const ZONES_API_BASE = `${API_BASE}/api/zones`;
 const TERRITORIES_API_BASE = `${API_BASE}/api/territories`;
 let zonesApiMode = true;

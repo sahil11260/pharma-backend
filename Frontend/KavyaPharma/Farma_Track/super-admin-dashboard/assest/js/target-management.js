@@ -5,7 +5,7 @@
  */
 
 const TARGETS_STORAGE_KEY = "kavyaPharmTargets";
-const API_BASE = "";
+const API_BASE = "https://pharma-backend-hxf9.onrender.com";
 const TARGETS_API_BASE = `${API_BASE}/api/targets`;
 const ROWS_PER_PAGE = 10;
 let currentPage = 1;
