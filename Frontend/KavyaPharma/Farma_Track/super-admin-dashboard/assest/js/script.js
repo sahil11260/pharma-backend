@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         localStorage.clear();
         alert("Logged out successfully");
         //window.location.href = "login.html";
-        window.location.href = "../Index.html";
+        window.location.href = "../index.html";
       });
     }
   });

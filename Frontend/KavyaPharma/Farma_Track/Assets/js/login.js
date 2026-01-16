@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         else if (finalRole === "MANAGER") window.location.href = "./Manager-Dashboard/index.html";
         else if (finalRole === "MR") window.location.href = "./MR-Dashboard/index.html";
         else if (finalRole === "DOCTOR") window.location.href = "./MR-Dashboard/doctors.html";
-        else if (finalRole === "HR") window.location.href = "./Index.html";
+        else if (finalRole === "HR") window.location.href = "./index.html";
       } catch (err) {
         const msg = err && err.message ? String(err.message) : "Login failed";
         alert(msg);
