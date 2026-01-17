@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("loginForm");
   const email = document.getElementById("email");
   const password = document.getElementById("password");
-  const role = document.getElementById("role");
+
 
   const emailError = document.getElementById("email-error");
   const passwordError = document.getElementById("password-error");
@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const emailVal = email.value.trim();
     const passVal = password.value.trim();
-    const roleVal = role.value;
 
     if (!validateEmail(emailVal)) {
       emailError.textContent = "Enter valid email.";
@@ -78,10 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    if (!roleVal) {
-      alert("Please select role");
-      return;
-    }
 
     (async function () {
       try {
@@ -109,15 +104,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const user = data ? data.user : null;
 
         const serverRole = user && user.role ? String(user.role) : "";
-        if (serverRole && roleVal && serverRole !== roleVal) {
-          alert(`Selected role (${roleVal}) does not match your account role (${serverRole}).`);
-          return;
-        }
 
         localStorage.setItem("kavya_auth_token", token || "");
         localStorage.setItem("kavya_user", JSON.stringify(user || {}));
 
-        const finalRole = serverRole || roleVal;
+        const finalRole = serverRole;
         localStorage.setItem("kavya_user_email", (user && user.email) ? user.email : emailVal);
         localStorage.setItem("kavya_user_role", finalRole);
         localStorage.setItem("signup_name", (user && user.name) ? user.name : (localStorage.getItem("signup_name") || ""));
