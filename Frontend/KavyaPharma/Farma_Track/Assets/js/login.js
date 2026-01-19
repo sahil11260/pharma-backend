@@ -20,10 +20,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   email.addEventListener("input", () => {
+    email.classList.remove("input-error");
     if (!validateEmail(email.value.trim())) {
       emailError.textContent = "Enter valid email (must end with .com)";
     } else {
       emailError.textContent = "";
+    }
+  });
+
+  password.addEventListener("input", () => {
+    password.classList.remove("input-error");
+    if (!validatePassword(password.value.trim())) {
+      passwordError.textContent = "Enter password";
+    } else {
+      passwordError.textContent = "";
     }
   });
 
@@ -78,11 +88,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    const API_BASE = "https://pharma-backend-hxf9.onrender.com";
+
     (async function () {
       try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Logging in...";
+
         const payload = { email: emailVal, password: passVal };
 
-        const res = await fetch("https://pharma-backend-hxf9.onrender.com/api/auth/login", {
+        const res = await fetch(`${API_BASE}/api/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
@@ -90,13 +107,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!res.ok) {
           const text = await res.text().catch(() => "");
-          let message = text || `Login failed (${res.status})`;
+          let message = `Login failed (${res.status})`;
           try {
             const obj = text ? JSON.parse(text) : null;
             if (obj && obj.message) message = String(obj.message);
           } catch (_) {
+            if (text) message = text;
           }
-          throw new Error(message);
+
+          if (message.toLowerCase().includes("credentials") || message.toLowerCase().includes("email") || message.toLowerCase().includes("user")) {
+            emailError.textContent = message;
+            email.classList.add("input-error");
+            email.focus();
+          } else if (message.toLowerCase().includes("password")) {
+            passwordError.textContent = message;
+            password.classList.add("input-error");
+          } else {
+            alert(message);
+          }
+          return;
         }
 
         const data = await res.json();
@@ -121,9 +150,16 @@ document.addEventListener("DOMContentLoaded", function () {
         else if (finalRole === "MR") window.location.href = "./MR-Dashboard/index.html";
         else if (finalRole === "DOCTOR") window.location.href = "./MR-Dashboard/doctors.html";
         else if (finalRole === "HR") window.location.href = "./index.html";
+        else {
+          alert("Login successful, but no role-based dashboard found.");
+          window.location.href = "index.html";
+        }
       } catch (err) {
-        const msg = err && err.message ? String(err.message) : "Login failed";
-        alert(msg);
+        console.error("Login error:", err);
+        alert(err.message || "An unexpected error occurred. Please try again.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
       }
     })();
   });

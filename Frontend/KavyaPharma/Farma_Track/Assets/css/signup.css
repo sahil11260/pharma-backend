@@ -80,6 +80,11 @@ select {
   display: block;
 }
 
+.input-error {
+  border-color: red !important;
+  background-color: #fff0f0;
+}
+
 .btn {
   width: 100%;
   padding: 12px;

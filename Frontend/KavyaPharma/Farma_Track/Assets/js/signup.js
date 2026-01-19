@@ -26,6 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
     this.classList.toggle("fa-eye-slash");
   });
 
+  // Clear errors on input
+  [nameField, emailField, passField, confirmField, roleField].forEach(field => {
+    field.addEventListener("input", () => {
+      field.classList.remove("input-error");
+      const errorId = field.id === "confirm" ? "confirmError" : (field.id === "password" ? "passError" : field.id + "Error");
+      const errorEl = document.getElementById(errorId);
+      if (errorEl) errorEl.textContent = "";
+    });
+  });
+
   // Validation on submit
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -69,13 +79,21 @@ document.addEventListener("DOMContentLoaded", function () {
     // ROLE
     if (roleField.value === "") {
       roleError.textContent = "Please select a role.";
+      roleField.classList.add("input-error");
       valid = false;
     }
 
     if (!valid) return;
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+
     (async function () {
       try {
+        // Disable button and show loading
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Signing up...";
+
         const payload = {
           name: nameField.value.trim(),
           email: emailField.value.trim(),
@@ -91,7 +109,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!res.ok) {
           const text = await res.text().catch(() => "");
-          throw new Error(text || `Signup failed (${res.status})`);
+          let errorMsg = `Signup failed (${res.status})`;
+
+          try {
+            const errorJson = JSON.parse(text);
+            errorMsg = errorJson.message || errorMsg;
+          } catch (e) {
+            errorMsg = text || errorMsg;
+          }
+
+          // Handle specific errors
+          if (errorMsg.toLowerCase().includes("email")) {
+            emailError.textContent = errorMsg;
+            emailField.classList.add("input-error");
+            emailField.focus();
+          } else if (errorMsg.toLowerCase().includes("name")) {
+            nameError.textContent = errorMsg;
+            nameField.classList.add("input-error");
+          } else if (errorMsg.toLowerCase().includes("password")) {
+            passError.textContent = errorMsg;
+            passField.classList.add("input-error");
+          } else {
+            alert(errorMsg);
+          }
+          return;
         }
 
         const user = await res.json();
@@ -103,8 +144,11 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Signup successful! Please login.");
         window.location.href = "login.html";
       } catch (err) {
-        const msg = err && err.message ? String(err.message) : "Signup failed";
-        alert(msg);
+        console.error("Signup error:", err);
+        alert(err.message || "An unexpected error occurred. Please try again.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
       }
     })();
   });
