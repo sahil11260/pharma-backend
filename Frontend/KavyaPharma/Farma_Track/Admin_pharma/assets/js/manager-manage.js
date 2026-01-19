@@ -1,449 +1,241 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
   const API_BASE = "https://pharma-backend-hxf9.onrender.com";
-  const USERS_API_BASE = `${API_BASE}/api/users`;
-  const STORAGE_KEY_MANAGERS = "kavyaPharmAdminManagersData";
-  let managersApiMode = true;
-
-  function getAuthHeader() {
-    const token = localStorage.getItem("kavya_auth_token");
-    if (!token) return {};
-    return { Authorization: `Bearer ${token}` };
-  }
-
-  async function apiJson(url, options) {
-    const res = await fetch(url, Object.assign({
-      headers: Object.assign({ "Content-Type": "application/json" }, getAuthHeader())
-    }, options || {}));
-    if (!res.ok) {
-      const text = await res.text().catch(() => "");
-      throw new Error(text || `HTTP ${res.status}`);
-    }
-    if (res.status === 204) return null;
-    return await res.json();
-  }
-
-  function loadFromStorageIfAny() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY_MANAGERS);
-      if (!raw) return;
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) managers = parsed;
-    } catch (e) {
-      console.warn("Failed to parse stored admin managers.", e);
-    }
-  }
-
-  async function refreshManagersFromApiOrFallback() {
-    try {
-      const users = await apiJson(USERS_API_BASE);
-      if (Array.isArray(users)) {
-        managers = users
-          .filter((u) => u && String(u.role) === "MANAGER")
-          .map((u) => ({
-            id: Number(u.id),
-            name: u.name,
-            email: u.email,
-            phone: u.phone || "",
-            territory: u.territory || "",
-            password: ""
-          }));
-        localStorage.setItem(STORAGE_KEY_MANAGERS, JSON.stringify(managers));
-        managersApiMode = true;
-        hideApiRetryBanner();
-        return;
-      }
-      managersApiMode = false;
-      showApiRetryBanner();
-    } catch (e) {
-      console.warn("Managers API unavailable, using localStorage.", e);
-      managersApiMode = false;
-      showApiRetryBanner();
-    }
-  }
-
-  async function createManagerApi(m) {
-    return await apiJson(USERS_API_BASE, {
-      method: "POST",
-      body: JSON.stringify({
-        name: m.name,
-        email: m.email,
-        password: m.password,
-        role: "MANAGER",
-        phone: m.phone,
-        territory: m.territory,
-        status: "ACTIVE",
-        assignedManager: null
-      })
-    });
-  }
-
-  async function updateManagerApi(id, m) {
-    return await apiJson(`${USERS_API_BASE}/${id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        name: m.name,
-        role: "MANAGER",
-        phone: m.phone,
-        territory: m.territory,
-        status: "ACTIVE",
-        assignedManager: null,
-        password: m.password ? m.password : null
-      })
-    });
-  }
-
-  async function deleteManagerApi(id) {
-    await apiJson(`${USERS_API_BASE}/${id}`, { method: "DELETE" });
-  }
+  const USERS_API = `${API_BASE}/api/users`;
 
   const tableBody = document.getElementById("managerTableBody");
-  const pagination = document.getElementById("pagination");
+  const paginationEl = document.getElementById("pagination");
   const searchInput = document.getElementById("searchManager");
   const managerForm = document.getElementById("managerForm");
-  const togglePassword = document.getElementById("togglePassword");
+  const modalTitle = document.querySelector("#managerModal .modal-title");
+  const submitBtn = managerForm.querySelector('button[type="submit"]');
   const passwordInput = document.getElementById("managerPassword");
+  const togglePassword = document.getElementById("togglePassword");
 
-  let editManagerId = null;
+  const managerModal = new bootstrap.Modal(document.getElementById("managerModal"));
 
-  let managers = [
-    // start empty — will load from API/localStorage
-  ];
-
-  function showApiRetryBanner() {
-    if (document.getElementById("managerApiRetryBanner")) return;
-    const banner = document.createElement("div");
-    banner.id = "managerApiRetryBanner";
-    banner.className = "alert alert-warning text-center";
-    banner.style.margin = "10px 0";
-    banner.innerHTML = '<strong>Managers API unreachable.</strong> Some actions will use local data. ' +
-      '<button id="managerApiRetryBtn" class="btn btn-sm btn-outline-primary ms-2">Retry</button>';
-    const container = document.querySelector(".container") || document.body;
-    container.insertBefore(banner, container.firstChild);
-    document.getElementById("managerApiRetryBtn").addEventListener("click", async function () {
-      hideApiRetryBanner();
-      try {
-        await refreshManagersFromApiOrFallback();
-        displayTable(currentPage, searchInput.value);
-      } catch (e) {
-        showApiRetryBanner();
-      }
-    });
-  }
-
-  function hideApiRetryBanner() {
-    const b = document.getElementById("managerApiRetryBanner");
-    if (b && b.parentNode) b.parentNode.removeChild(b);
-  }
-
+  let managers = [];
+  let filteredManagers = [];
+  let editMode = false;
+  let currentEditId = null;
   let currentPage = 1;
-  const rowsPerPage = 4;
+  const rowsPerPage = 5;
 
-  // ✅ Validation Function
-  function validateManagerForm() {
-    const name = managerForm.managerName.value.trim();
-    const email = managerForm.managerEmail.value.trim();
-    const phone = managerForm.managerPhone.value.trim();
-    const territory = managerForm.managerTerritory.value.trim();
-    const password = managerForm.managerPassword.value.trim();
-
-    const nameRegex = /^[A-Za-z\s]+$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{10}$/;
-    const passwordRegex = /^.{5,}$/; // at least 5 chars
-
-    if (!name || !email || !phone || !territory || (editManagerId === null && !password)) {
-      alert("⚠️ Please fill all fields before saving.");
-      return false;
-    }
-    if (!nameRegex.test(name)) {
-      alert("⚠️ Name should contain only letters and spaces.");
-      return false;
-    }
-    if (!emailRegex.test(email)) {
-      alert("⚠️ Enter a valid email address.");
-      return false;
-    }
-    if (!phoneRegex.test(phone)) {
-      alert("⚠️ Phone number must be exactly 10 digits.");
-      return false;
-    }
-    if (!nameRegex.test(territory)) {
-      alert("⚠️ Territory should contain only letters and spaces.");
-      return false;
-    }
-    if (password && !passwordRegex.test(password)) {
-      alert("⚠️ Password must be at least 5 characters long.");
-      return false;
-    }
-    return true;
+  // --- Helpers ---
+  function getAuthHeader() {
+    const token = localStorage.getItem("kavya_auth_token");
+    return token ? { "Authorization": `Bearer ${token}` } : {};
   }
 
-  // ✅ Display Table
-  function displayTable(page = 1, filter = "") {
-    tableBody.innerHTML = "";
-    const filtered = managers.filter(
-      (m) =>
-        m.name.toLowerCase().includes(filter.toLowerCase()) ||
-        m.email.toLowerCase().includes(filter.toLowerCase()) ||
-        m.territory.toLowerCase().includes(filter.toLowerCase())
-    );
+  async function apiRequest(url, options = {}) {
+    const headers = {
+      "Content-Type": "application/json",
+      ...getAuthHeader(),
+      ...(options.headers || {})
+    };
 
-    const start = (page - 1) * rowsPerPage;
+    try {
+      const response = await fetch(url, { ...options, headers });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorMsg = `Error ${response.status}: ${response.statusText}`;
+        try {
+          const errorJson = JSON.parse(errorText);
+          errorMsg = errorJson.message || errorMsg;
+        } catch (e) { }
+        throw new Error(errorMsg);
+      }
+
+      if (response.status === 204) return null;
+      return await response.json();
+    } catch (error) {
+      console.error("API Request Failed:", error);
+      throw error;
+    }
+  }
+
+  // --- Core CRUD ---
+  async function fetchManagers() {
+    try {
+      tableBody.innerHTML = '<tr><td colspan="5" class="text-center"><div class="spinner-border text-primary" role="status"></div></td></tr>';
+      const data = await apiRequest(USERS_API);
+      // Filter only managers
+      managers = data.filter(user => user.role === "MANAGER");
+      applyFilter();
+    } catch (error) {
+      tableBody.innerHTML = `<tr><td colspan="5" class="text-center text-danger">Failed to load managers: ${error.message}</td></tr>`;
+    }
+  }
+
+  function applyFilter() {
+    const term = searchInput.value.toLowerCase();
+    filteredManagers = managers.filter(m =>
+      m.name.toLowerCase().includes(term) ||
+      m.email.toLowerCase().includes(term) ||
+      (m.territory && m.territory.toLowerCase().includes(term))
+    );
+    currentPage = 1;
+    renderTable();
+  }
+
+  function renderTable() {
+    tableBody.innerHTML = "";
+    const start = (currentPage - 1) * rowsPerPage;
     const end = start + rowsPerPage;
-    const pageData = filtered.slice(start, end);
+    const pageData = filteredManagers.slice(start, end);
 
     if (pageData.length === 0) {
-      tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-muted">No results found</td></tr>`;
-    } else {
-      pageData.forEach((m, i) => {
-        tableBody.innerHTML += `
-          <tr>
-            <td>${m.name}</td>
-            <td>${m.email}</td>
-            <td>${m.phone}</td>
-            <td>${m.territory}</td>
-            <td>
-              <button class="btn btn-sm btn-outline-primary me-2" onclick="editManager(${m.id})"><i class="bi bi-pencil"></i></button>
-              <button class="btn btn-sm btn-outline-danger" onclick="deleteManager(${m.id})"><i class="bi bi-trash"></i></button>
-            </td>
-          </tr>`;
-      });
+      tableBody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No managers found.</td></tr>';
+      renderPagination();
+      return;
     }
-    renderPagination(filtered.length, page);
+
+    pageData.forEach(m => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${m.name}</td>
+        <td>${m.email}</td>
+        <td>${m.phone || "—"}</td>
+        <td>${m.territory || "—"}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-2 edit-btn" data-id="${m.id}"><i class="bi bi-pencil"></i></button>
+          <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${m.id}"><i class="bi bi-trash"></i></button>
+        </td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+    // Attach local listeners
+    tableBody.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", () => openEditModal(btn.dataset.id));
+    });
+    tableBody.querySelectorAll(".delete-btn").forEach(btn => {
+      btn.addEventListener("click", () => deleteManager(btn.dataset.id));
+    });
+
+    renderPagination();
   }
 
-  // ✅ Pagination
-  function renderPagination(totalItems, page) {
-    const totalPages = Math.ceil(totalItems / rowsPerPage);
-    pagination.innerHTML = "";
+  function renderPagination() {
+    paginationEl.innerHTML = "";
+    const totalPages = Math.ceil(filteredManagers.length / rowsPerPage);
     if (totalPages <= 1) return;
 
-    let html = `
-      <li class="page-item ${page === 1 ? "disabled" : ""}">
-        <a class="page-link" href="#">Previous</a>
-      </li>`;
-
     for (let i = 1; i <= totalPages; i++) {
-      html += `<li class="page-item ${i === page ? "active" : ""}">
-        <a class="page-link" href="#">${i}</a>
-      </li>`;
+      const li = document.createElement("li");
+      li.className = `page-item ${i === currentPage ? "active" : ""}`;
+      li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+      li.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentPage = i;
+        renderTable();
+      });
+      paginationEl.appendChild(li);
     }
-
-    html += `
-      <li class="page-item ${page === totalPages ? "disabled" : ""}">
-        <a class="page-link" href="#">Next</a>
-      </li>`;
-
-    pagination.innerHTML = html;
-
-    document.querySelectorAll(".page-link").forEach((btn) =>
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const text = e.target.innerText;
-        if (text === "Previous" && currentPage > 1) currentPage--;
-        else if (text === "Next" && currentPage < totalPages) currentPage++;
-        else if (!isNaN(text)) currentPage = parseInt(text);
-        displayTable(currentPage, searchInput.value);
-      })
-    );
   }
 
-  // ✅ Search
-  searchInput.addEventListener("keyup", () => {
-    currentPage = 1;
-    displayTable(currentPage, searchInput.value);
-  });
+  // --- Actions ---
+  window.openAddModal = function () {
+    editMode = false;
+    currentEditId = null;
+    modalTitle.textContent = "Add Manager";
+    managerForm.reset();
+    document.getElementById("managerEmail").disabled = false;
+    document.getElementById("managerPassword").required = true;
+    managerModal.show();
+  };
 
-  // ✅ Add Manager
-  managerForm.addEventListener("submit", (e) => {
+  async function openEditModal(id) {
+    const manager = managers.find(m => String(m.id) === String(id));
+    if (!manager) return;
+
+    editMode = true;
+    currentEditId = id;
+    modalTitle.textContent = "Edit Manager";
+
+    document.getElementById("managerName").value = manager.name;
+    document.getElementById("managerEmail").value = manager.email;
+    document.getElementById("managerPhone").value = manager.phone || "";
+    document.getElementById("managerTerritory").value = manager.territory || "";
+    document.getElementById("managerPassword").value = "";
+    document.getElementById("managerPassword").required = false;
+    document.getElementById("managerEmail").disabled = true;
+
+    managerModal.show();
+  }
+
+  async function deleteManager(id) {
+    if (!confirm("Are you sure you want to delete this manager?")) return;
+    try {
+      await apiRequest(`${USERS_API}/${id}`, { method: "DELETE" });
+      alert("Manager deleted successfully.");
+      fetchManagers();
+    } catch (error) {
+      alert("Failed to delete manager: " + error.message);
+    }
+  }
+
+  managerForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-    if (!validateManagerForm()) return;
 
-    const newManager = {
-      id: editManagerId === null ? ((managers.reduce((m, x) => Math.max(m, Number(x.id) || 0), 0) || 0) + 1) : Number(editManagerId),
-      name: managerForm.managerName.value.trim(),
-      email: managerForm.managerEmail.value.trim(),
-      phone: managerForm.managerPhone.value.trim(),
-      territory: managerForm.managerTerritory.value.trim(),
-      password: managerForm.managerPassword.value.trim(),
+    const payload = {
+      name: document.getElementById("managerName").value,
+      email: document.getElementById("managerEmail").value,
+      role: "MANAGER",
+      phone: document.getElementById("managerPhone").value,
+      territory: document.getElementById("managerTerritory").value,
+      status: "ACTIVE"
     };
 
-    (async function () {
-      if (managersApiMode) {
-        try {
-          if (editManagerId !== null) {
-            await updateManagerApi(editManagerId, newManager);
-          } else {
-            await createManagerApi(newManager);
-          }
-          await refreshManagersFromApiOrFallback();
-          displayTable();
-          managerForm.reset();
-          managerForm.managerEmail.disabled = false;
-          editManagerId = null;
-          bootstrap.Modal.getInstance(document.getElementById("managerModal")).hide();
-          return;
-        } catch (e) {
-          console.warn("Manager save API failed. Falling back to localStorage.", e);
-          managersApiMode = false;
-        }
+    const password = document.getElementById("managerPassword").value;
+    if (password) payload.password = password;
+
+    try {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+
+      if (editMode) {
+        await apiRequest(`${USERS_API}/${currentEditId}`, {
+          method: "PUT",
+          body: JSON.stringify(payload)
+        });
+        alert("Manager updated successfully.");
+      } else {
+        await apiRequest(USERS_API, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        alert("Manager added successfully.");
       }
 
-      if (editManagerId !== null) {
-        const idx = managers.findIndex((x) => Number(x.id) === Number(editManagerId));
-        if (idx !== -1) managers[idx] = newManager;
-      } else {
-        managers.push(newManager);
-      }
-      localStorage.setItem(STORAGE_KEY_MANAGERS, JSON.stringify(managers));
-      displayTable();
-      managerForm.reset();
-      managerForm.managerEmail.disabled = false;
-      editManagerId = null;
-      bootstrap.Modal.getInstance(document.getElementById("managerModal")).hide();
-    })();
+      managerModal.hide();
+      fetchManagers();
+    } catch (error) {
+      alert("Failed to save manager: " + error.message);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Save";
+    }
   });
 
-  // ✅ Open Add Manager (Empty Form)
-  const addBtn = document.querySelector('[data-bs-target="#managerModal"]');
-  if (addBtn) {
-    addBtn.addEventListener("click", () => {
-      managerForm.reset(); // clear previous data
-      managerForm.managerEmail.disabled = false;
-      editManagerId = null;
-      managerForm.onsubmit = null; // reset submit listener
-      managerForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (!validateManagerForm()) return;
+  // --- Search & Utils ---
+  searchInput.addEventListener("input", applyFilter);
 
-        const newManager = {
-          id: (managers.reduce((m, x) => Math.max(m, Number(x.id) || 0), 0) || 0) + 1,
-          name: managerForm.managerName.value.trim(),
-          email: managerForm.managerEmail.value.trim(),
-          phone: managerForm.managerPhone.value.trim(),
-          territory: managerForm.managerTerritory.value.trim(),
-          password: managerForm.managerPassword.value.trim(),
-        };
-
-        (async function () {
-          if (managersApiMode) {
-            try {
-              await createManagerApi(newManager);
-              await refreshManagersFromApiOrFallback();
-              displayTable();
-              managerForm.reset();
-              bootstrap.Modal.getInstance(document.getElementById("managerModal")).hide();
-              return;
-            } catch (e) {
-              console.warn("Manager create API failed. Falling back to localStorage.", e);
-              managersApiMode = false;
-            }
-          }
-
-          managers.push(newManager);
-          localStorage.setItem(STORAGE_KEY_MANAGERS, JSON.stringify(managers));
-          displayTable();
-          managerForm.reset();
-          bootstrap.Modal.getInstance(document.getElementById("managerModal")).hide();
-        })();
-      }, { once: true });
-    });
-  }
-
-  // ✅ Edit Manager
-  window.editManager = (id) => {
-    const m = managers.find((x) => Number(x.id) === Number(id));
-    if (!m) return;
-    editManagerId = Number(m.id);
-    managerForm.managerName.value = m.name;
-    managerForm.managerEmail.value = m.email;
-    managerForm.managerPhone.value = m.phone;
-    managerForm.managerTerritory.value = m.territory;
-    managerForm.managerPassword.value = "";
-
-    managerForm.managerEmail.disabled = true;
-
-    const modal = new bootstrap.Modal(document.getElementById("managerModal"));
-    modal.show();
-
-    managerForm.onsubmit = (e) => {
-      e.preventDefault();
-      if (!validateManagerForm()) return;
-
-      const updated = {
-        id: Number(m.id),
-        name: managerForm.managerName.value.trim(),
-        email: m.email,
-        phone: managerForm.managerPhone.value.trim(),
-        territory: managerForm.managerTerritory.value.trim(),
-        password: managerForm.managerPassword.value.trim(),
-      };
-
-      (async function () {
-        if (managersApiMode) {
-          try {
-            await updateManagerApi(updated.id, updated);
-            await refreshManagersFromApiOrFallback();
-            displayTable();
-            modal.hide();
-            managerForm.reset();
-            managerForm.managerEmail.disabled = false;
-            editManagerId = null;
-            return;
-          } catch (e) {
-            console.warn("Manager update API failed. Falling back to localStorage.", e);
-            managersApiMode = false;
-          }
-        }
-
-        const idx = managers.findIndex((x) => Number(x.id) === Number(updated.id));
-        if (idx !== -1) managers[idx] = updated;
-        localStorage.setItem(STORAGE_KEY_MANAGERS, JSON.stringify(managers));
-        displayTable();
-        modal.hide();
-        managerForm.reset();
-        managerForm.managerEmail.disabled = false;
-        editManagerId = null;
-      })();
-    };
-  };
-
-  // ✅ Delete Manager
-  window.deleteManager = (id) => {
-    if (!confirm("Delete this manager?")) return;
-
-    (async function () {
-      if (managersApiMode && id) {
-        try {
-          await deleteManagerApi(id);
-          await refreshManagersFromApiOrFallback();
-          displayTable(currentPage, searchInput.value);
-          return;
-        } catch (e) {
-          console.warn("Manager delete API failed. Falling back to localStorage.", e);
-          managersApiMode = false;
-        }
-      }
-
-      const idx = managers.findIndex((x) => Number(x.id) === Number(id));
-      if (idx !== -1) managers.splice(idx, 1);
-      localStorage.setItem(STORAGE_KEY_MANAGERS, JSON.stringify(managers));
-      displayTable(currentPage, searchInput.value);
-    })();
-  };
-
-  // ✅ Password Show/Hide
-  togglePassword.addEventListener("click", () => {
+  togglePassword.addEventListener("click", function () {
     const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
     passwordInput.setAttribute("type", type);
-    togglePassword.classList.toggle("bi-eye");
-    togglePassword.classList.toggle("bi-eye-slash");
+    this.classList.toggle("bi-eye");
+    this.classList.toggle("bi-eye-slash");
   });
 
-  // ✅ Initial Render
-  loadFromStorageIfAny();
-  (async function () {
-    await refreshManagersFromApiOrFallback();
-    displayTable();
-  })();
+  // --- Initial Load ---
+  // Fix for the Add Manager button in HTML which might use data-bs-toggle
+  // We'll override the click if needed or just use the window function
+  const addManagerBtn = document.querySelector('[data-bs-target="#managerModal"]');
+  if (addManagerBtn) {
+    addManagerBtn.removeAttribute("data-bs-toggle");
+    addManagerBtn.addEventListener("click", openAddModal);
+  }
+
+  fetchManagers();
 });
